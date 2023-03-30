@@ -10,6 +10,9 @@ const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.secondary,
     overflow: 'hidden',
     maxWidth: '100%',
+    height: '20vh',
+    display: 'flex',
+    justifyContent: 'center',
 }));
 
 export default function ViewPage(props) {

@@ -9,8 +9,11 @@ const Item = styled(Paper)(({ theme }) => ({
     padding: theme.spacing(1),
     textAlign: 'center',
     color: theme.palette.text.secondary,
-    overflow: 'hidden',
     width: '100%',
+    height: '20vh',
+    overflow: 'hidden',
+    display: 'flex',
+    justifyContent: 'center',
 }));
 
 export default function MakeOutfit(props) {

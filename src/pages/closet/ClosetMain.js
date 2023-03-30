@@ -2,11 +2,12 @@ import Sidebar from './Sidebar';
 import { useEffect, useState } from 'react';
 import { IconButton } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import MakeOutfit from './MakeOutfit';
 import { useNavigate } from 'react-router-dom';
 import { bottomsImages, topImages } from './DummyData';
 import ViewPage from './ViewPage';
+import TuneIcon from '@mui/icons-material/Tune';
 
 const emptyItems = [
     {
@@ -17,6 +18,18 @@ const emptyItems = [
         type: 'Bottoms',
         url: 'https://fortbendseniors.org/wp-content/uploads/2019/01/blank-white-square-thumbnail.jpg',
     },
+    {
+        type: 'Jewelry',
+        url: 'https://fortbendseniors.org/wp-content/uploads/2019/01/blank-white-square-thumbnail.jpg',
+    },
+    {
+        type: 'Other',
+        url: 'https://fortbendseniors.org/wp-content/uploads/2019/01/blank-white-square-thumbnail.jpg',
+    },
+    {
+        type: 'Shoes',
+        url: 'https://fortbendseniors.org/wp-content/uploads/2019/01/blank-white-square-thumbnail.jpg',
+    },
 ];
 
 export default function Closet() {
@@ -24,6 +37,7 @@ export default function Closet() {
     const [modOutfit, setModOutfit] = useState(false);
     const [items, setItems] = useState(emptyItems);
     const navigate = useNavigate();
+    const location = useLocation();
     const handleClickNav = (text, modOutfit) => {
         if (modOutfit) setModOutfit(modOutfit);
         const lowerText = text.toLowerCase();
@@ -60,6 +74,9 @@ export default function Closet() {
             >
                 <MenuIcon />
             </IconButton>
+            {location.pathname === '/closet' && (
+                <TuneIcon className="edit-button" aria-label="edit" />
+            )}
             <Sidebar
                 sidebarOpen={sidebarOpen}
                 setSidebarOpen={setSidebarOpen}
