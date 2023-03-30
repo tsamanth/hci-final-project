@@ -2,7 +2,7 @@ import Sidebar from './Sidebar';
 import { useEffect, useState } from 'react';
 import { IconButton } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import MakeOutfit from './MakeOutfit';
 import { useNavigate } from 'react-router-dom';
 import { bottomsImages, topImages } from './DummyData';
@@ -74,7 +74,7 @@ export default function Closet() {
             >
                 <MenuIcon />
             </IconButton>
-            {location.pathname === '/closet' && (
+            {location.pathname === '/closet/make-outfit' && (
                 <TuneIcon className="edit-button" aria-label="edit" />
             )}
             <Sidebar
@@ -83,8 +83,9 @@ export default function Closet() {
                 handleClick={handleClickNav}
             />
             <Routes>
+                <Route path="/" element={<Navigate replace to="/closet/tops" />} />
                 <Route
-                    path="/"
+                    path="/make-outfit"
                     element={
                         <MakeOutfit
                             handleItemClick={handleClickNav}

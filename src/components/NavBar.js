@@ -44,8 +44,11 @@ function Navbar() {
             <CssBaseline />
             <Toolbar className={classes.toolbar}>
                 <div className={classes.navlinks}>
-                    <Link className={classes.link} to="/closet">
+                    <Link className={classes.link} to="/closet/tops">
                         Closet
+                    </Link>
+                    <Link className={classes.link} to="/closet/make-outfit">
+                        Make
                     </Link>
                     {/* <Link className={classes.link} to="/search">
                         Search
