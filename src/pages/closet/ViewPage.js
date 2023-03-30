@@ -15,7 +15,7 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function ViewPage(props) {
     const listImages = props.images.map(url => (
         <Grid item xs={4} key={url}>
-            <Item>
+            <Item onClick={() => props.handleClick(url, props.type)}>
                 <img src={url} />
             </Item>
         </Grid>
@@ -30,5 +30,7 @@ export default function ViewPage(props) {
 }
 
 ViewPage.propTypes = {
+    type: PropTypes.string,
+    handleClick: PropTypes.func,
     images: PropTypes.array,
 };

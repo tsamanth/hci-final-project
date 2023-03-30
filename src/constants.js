@@ -7,5 +7,15 @@ export const headerMapping = {
     '/explore': 'Explore',
     '/profile': 'My Profile',
     'empty': 'empty'
-
 }
+
+export const emptyItems = [
+    {
+        type: 'Tops',
+        url: 'https://fortbendseniors.org/wp-content/uploads/2019/01/blank-white-square-thumbnail.jpg',
+    },
+    {
+        type: 'Bottoms',
+        url: 'https://fortbendseniors.org/wp-content/uploads/2019/01/blank-white-square-thumbnail.jpg',
+    },
+];
