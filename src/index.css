@@ -12,6 +12,9 @@ code {
         monospace;
 }
 
+body {
+    overflow: hidden;
+}
 html,
 body,
 #root {

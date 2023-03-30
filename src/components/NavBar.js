@@ -12,11 +12,12 @@ const useStyles = makeStyles(theme => ({
     appBar: {
         top: 'auto',
         bottom: 0,
-        background: 'none',
+        background: 'white',
         borderTop: 'solid black 1px',
     },
     toolbar: {
         width: '100%',
+        minHeight: '40px',
     },
     navlinks: {
         display: 'flex',
@@ -26,7 +27,6 @@ const useStyles = makeStyles(theme => ({
     link: {
         textDecoration: 'none',
         color: 'black',
-        fontSize: '1.5em',
         '&:hover': {
             color: 'dark-grey',
             background: 'lightGrey',
