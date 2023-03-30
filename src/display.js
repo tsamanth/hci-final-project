@@ -9,4 +9,6 @@ export const Header = styled.div`
     line-height: 40px;
     text-align: center;
     background: white;
+    font-family: 'Cabin';
+    text-transform: uppercase;
 `;

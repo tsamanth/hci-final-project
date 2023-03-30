@@ -14,6 +14,8 @@ const useStyles = makeStyles(theme => ({
         bottom: 0,
         background: 'white',
         borderTop: 'solid black 1px',
+        fontFamily: 'Cabin',
+        textTransform: "uppercase",
     },
     toolbar: {
         width: '100%',
