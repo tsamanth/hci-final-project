@@ -7,19 +7,21 @@ import Explore from './pages/explore/ExploreMain';
 import Profile from './pages/profile/ProfileMain';
 import AddPost from './pages/add-post/AddPostMain';
 import { Header } from './display';
+import { headerMapping } from './constants';
 
 function App() {
     const location = useLocation();
+    const headerTitle = headerMapping[location.pathname || 'empty'];
     return (
         <div className="App">
-            {/* <Header>{location.pathname}</Header> */}
-            <div>
+            <Header>{headerTitle}</Header>
+            <div className="routes">
                 <Routes>
                     <Route
                         path="/"
                         element={<Navigate replace to="/closet" />}
                     />
-                    <Route path="/closet" element={<Closet />} />
+                    <Route path="/closet/*" element={<Closet />} />
                     <Route path="/search" element={<Search />} />
                     <Route path="/add" element={<AddPost />} />
                     <Route path="/explore" element={<Explore />} />

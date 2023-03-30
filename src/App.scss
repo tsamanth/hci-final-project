@@ -3,3 +3,28 @@
     height: 100%;
 }
 
+.routes {
+    margin-top: 50px;
+    height: calc(100% - 95px);
+    overflow: scroll;
+}
+
+.closet {
+    .sidebar-button {
+        position: fixed;
+        top: 0px;
+        left: 0px;
+    }
+    
+    .view-page {
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+    }
+}
+
+.page {
+    padding: 10px;
+}
