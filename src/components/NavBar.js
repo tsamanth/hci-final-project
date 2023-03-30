@@ -45,15 +45,15 @@ function Navbar() {
                     <Link className={classes.link} to="/closet">
                         Closet
                     </Link>
-                    <Link className={classes.link} to="/search">
+                    {/* <Link className={classes.link} to="/search">
                         Search
                     </Link>
                     <Link className={classes.link} to="/add">
                         Add
-                    </Link>
-                    <Link className={classes.link} to="/explore">
+                    </Link> */}
+                    {/* <Link className={classes.link} to="/explore">
                         Explore
-                    </Link>
+                    </Link> */}
                     <Link className={classes.link} to="/profile">
                         Profile
                     </Link>

@@ -12,7 +12,7 @@ function App() {
     const location = useLocation();
     return (
         <div className="App">
-            <Header>{location.pathname}</Header>
+            {/* <Header>{location.pathname}</Header> */}
             <div>
                 <Routes>
                     <Route
