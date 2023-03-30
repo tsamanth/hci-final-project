@@ -6,8 +6,8 @@ export const headerMapping = {
     '/add': 'Add Post',
     '/explore': 'Explore',
     '/profile': 'My Profile',
-    'empty': 'empty'
-}
+    empty: 'empty',
+};
 
 export const emptyItems = [
     {
