@@ -41,11 +41,7 @@ export default function Closet() {
     const handleClickNav = (text, modOutfit) => {
         if (modOutfit) setModOutfit(modOutfit);
         const lowerText = text.toLowerCase();
-        if (text === 'Closet') {
-            navigate(`/`);
-        } else {
-            navigate(`/closet/${lowerText}`);
-        }
+        navigate(`/closet/${lowerText}`);
         setSidebarOpen(false);
     };
     const handleClickOutfit = (newUrl, type) => {
@@ -63,7 +59,7 @@ export default function Closet() {
     };
 
     useEffect(() => {
-        navigate(`/closet`);
+        navigate(`/closet/make-outfit`);
     }, [items]);
     return (
         <div className="closet page">
@@ -83,7 +79,11 @@ export default function Closet() {
                 handleClick={handleClickNav}
             />
             <Routes>
-                <Route path="/" element={<Navigate replace to="/closet/tops" />} />
+                <Route
+                    exact
+                    path="/"
+                    element={<Navigate replace to="/closet/tops" />}
+                />
                 <Route
                     path="/make-outfit"
                     element={

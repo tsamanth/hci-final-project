@@ -47,7 +47,7 @@ function Navbar() {
                     <Link className={classes.link} to="/closet/tops">
                         Closet
                     </Link>
-                    <Link className={classes.link} to="/closet/make-outfit">
+                    <Link className={classes.link} exact to="/closet/make-outfit">
                         Make
                     </Link>
                     {/* <Link className={classes.link} to="/search">
