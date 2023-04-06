@@ -24,7 +24,7 @@ export default function Sidebar(props) {
             >
                 <Box sx={{ width: 250 }} role="presentation">
                     <List>
-                        {['Tops', 'Bottoms'].map(text => (
+                        {['Tops', 'Bottoms', 'Jewelry', 'Shoes', 'Other'].map(text => (
                             <ListItem key={text} disablePadding>
                                 <ListItemButton>
                                     <ListItemText

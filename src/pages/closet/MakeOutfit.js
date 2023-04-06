@@ -59,5 +59,7 @@ MakeOutfit.propTypes = {
     handleItemClick: PropTypes.func,
     items: PropTypes.array,
     redo: PropTypes.func,
+    catagories: PropTypes.array,
+    setCatagories: PropTypes.func,
     save: PropTypes.func
 };

@@ -1,40 +1,45 @@
 import Sidebar from './Sidebar';
 import { useEffect, useState } from 'react';
-import { IconButton } from '@mui/material';
+import {
+    IconButton,
+    Modal,
+    Box,
+    Typography,
+    FormGroup,
+    FormControlLabel,
+    Checkbox,
+} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import MakeOutfit from './MakeOutfit';
 import { useNavigate } from 'react-router-dom';
-import { bottomsImages, topImages } from './DummyData';
+import {
+    bottomsImages,
+    topImages,
+    jewelryImages,
+    otherImages,
+    shoeImages,
+} from './DummyData';
 import ViewPage from './ViewPage';
 import TuneIcon from '@mui/icons-material/Tune';
 
 window.fits = [];
+import { emptyItems, defaultCatagories } from './constants';
 
-const emptyItems = [
-    {
-        type: 'Tops',
-        url: 'https://fortbendseniors.org/wp-content/uploads/2019/01/blank-white-square-thumbnail.jpg',
-    },
-    {
-        type: 'Bottoms',
-        url: 'https://fortbendseniors.org/wp-content/uploads/2019/01/blank-white-square-thumbnail.jpg',
-    },
-    {
-        type: 'Jewelry',
-        url: 'https://fortbendseniors.org/wp-content/uploads/2019/01/blank-white-square-thumbnail.jpg',
-    },
-    {
-        type: 'Other',
-        url: 'https://fortbendseniors.org/wp-content/uploads/2019/01/blank-white-square-thumbnail.jpg',
-    },
-    {
-        type: 'Shoes',
-        url: 'https://fortbendseniors.org/wp-content/uploads/2019/01/blank-white-square-thumbnail.jpg',
-    },
-];
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 300,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+};
 
 export default function Closet() {
+    const [modalOpen, setModalOpen] = useState(false);
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [modOutfit, setModOutfit] = useState(false);
     const [items, setItems] = useState(emptyItems);
@@ -44,8 +49,15 @@ export default function Closet() {
     const [currOutfit, setOutfit] = useState([]);
 
     const url = "https://hci-final-a1f8e-default-rtdb.firebaseio.com";
+    const [catagories, setCatagories] = useState(defaultCatagories);
     const navigate = useNavigate();
     const location = useLocation();
+
+    const handleModalOpen = () => setModalOpen(true);
+    const handleModalClose = () => setModalOpen(false);
+    const handleModalChange = ((e) => {
+
+    })
     const handleClickNav = (text, modOutfit) => {
         if (modOutfit) setModOutfit(modOutfit);
         const lowerText = text.toLowerCase();
@@ -93,8 +105,37 @@ export default function Closet() {
                 <MenuIcon />
             </IconButton>
             {location.pathname === '/closet/make-outfit' && (
-                <TuneIcon className="edit-button" aria-label="edit" />
+                <TuneIcon
+                    onClick={() => {
+                        console.log('ah');
+                        handleModalOpen();
+                    }}
+                    className="edit-button"
+                    aria-label="edit"
+                />
             )}
+            <Modal
+                open={modalOpen}
+                onClose={handleModalClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={style}>
+                    <Typography
+                        id="modal-modal-title"
+                        variant="h6"
+                        component="h2"
+                    >
+                        Edit Catagories
+                    </Typography>
+                    <FormGroup>
+                        <FormControlLabel
+                            control={<Checkbox defaultChecked onChange={handleModalChange}/>}
+                            label="Label"
+                        />
+                    </FormGroup>
+                </Box>
+            </Modal>
             <Sidebar
                 sidebarOpen={sidebarOpen}
                 setSidebarOpen={setSidebarOpen}
@@ -111,6 +152,8 @@ export default function Closet() {
                     path="/make-outfit"
                     element={
                         <MakeOutfit
+                            catagories={catagories}
+                            setCatagories={setCatagories}
                             handleItemClick={handleClickNav}
                             items={items}
                             redo={() => setItems(emptyItems)}
@@ -141,6 +184,36 @@ export default function Closet() {
                             type="bottoms"
                             handleClick={handleClickOutfit}
                             images={bottomsImages}
+                        />
+                    }
+                />
+                <Route
+                    path="/jewelry"
+                    element={
+                        <ViewPage
+                            type="jewelry"
+                            handleClick={handleClickOutfit}
+                            images={jewelryImages}
+                        />
+                    }
+                />
+                <Route
+                    path="/other"
+                    element={
+                        <ViewPage
+                            type="other"
+                            handleClick={handleClickOutfit}
+                            images={otherImages}
+                        />
+                    }
+                />
+                <Route
+                    path="/shoes"
+                    element={
+                        <ViewPage
+                            type="shoes"
+                            handleClick={handleClickOutfit}
+                            images={shoeImages}
                         />
                     }
                 />
