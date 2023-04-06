@@ -162,9 +162,8 @@ export default function Closet() {
                                 items.forEach(element => {
                                     urls.push(JSON.stringify(element.url));
                                 });
-                                
-                                alert(urls);
-                                window.fits.length ? window.fits = ([...window.fits, [urls]]): window.fits = ([[urls]]);
+ß
+                                window.fits.length ? window.fits = ([...window.fits, urls]): window.fits = ([urls]);
                             }}
                         />
                     }

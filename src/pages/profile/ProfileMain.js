@@ -27,7 +27,7 @@ export default function Profile(props) {
     
     const showOutfits = () => {
         let fit = []
-        //alert(JSON.stringify(window.fits));
+        alert(JSON.stringify(window.fits));
 
         let i = 1;
         window.fits.forEach(element => {
