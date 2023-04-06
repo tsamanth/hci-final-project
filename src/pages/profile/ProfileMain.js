@@ -1,8 +1,6 @@
 
 import React from 'react'
 import {Grid, Button} from '@mui/material';
-<<<<<<< Updated upstream
-=======
 import { borderBottom } from '@mui/system';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
@@ -70,7 +68,6 @@ export default function Profile(props) {
         return fit;
         
     }
->>>>>>> Stashed changes
 
     return (
     <div>
@@ -88,13 +85,7 @@ export default function Profile(props) {
             <div style = {{margin: "10px"}}>
                 <h3>STEM</h3>
                 <div style = {{display:"flex", justifyContent:"space-between", width:"100%"}}>
-<<<<<<< Updated upstream
-                    <h4 style = {{margin: "0px 5px"}}>0 posts</h4>
-                    <h4 style = {{margin: "0px 5px"}}>0 followers</h4>
-                    <h4 style = {{margin: "0px 5px"}}>0 following</h4>
-=======
                     <h4 style = {{display: "center", margin: "0px 50px"}}>{tops.length} posts</h4>
->>>>>>> Stashed changes
                 </div>
                 <div style = {{margin: "10px"}}>
                     <Button size = "small" variant = "outlined">Edit Profile</Button>
