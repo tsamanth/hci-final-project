@@ -45,11 +45,7 @@ export default function Closet() {
 
     const url = "https://hci-final-a1f8e-default-rtdb.firebaseio.com";
     const navigate = useNavigate();
-<<<<<<< Updated upstream
     const location = useLocation();
-=======
-
->>>>>>> Stashed changes
     const handleClickNav = (text, modOutfit) => {
         if (modOutfit) setModOutfit(modOutfit);
         const lowerText = text.toLowerCase();
