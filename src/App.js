@@ -10,6 +10,7 @@ import { headerMapping } from './constants';
 
 function App() {
     const location = useLocation();
+    
     const headerTitle = headerMapping[location.pathname || 'empty'];
     return (
         <div className="App">

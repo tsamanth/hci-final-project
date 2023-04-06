@@ -9,6 +9,8 @@ import { bottomsImages, topImages } from './DummyData';
 import ViewPage from './ViewPage';
 import TuneIcon from '@mui/icons-material/Tune';
 
+window.fits = [];
+
 const emptyItems = [
     {
         type: 'Tops',
@@ -36,18 +38,35 @@ export default function Closet() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [modOutfit, setModOutfit] = useState(false);
     const [items, setItems] = useState(emptyItems);
+
+    const [top, setTop] = useState(false);
+    const [bottom, setBottom] = useState(false);
+    const [currOutfit, setOutfit] = useState([]);
+
+    const url = "https://hci-final-a1f8e-default-rtdb.firebaseio.com";
     const navigate = useNavigate();
+<<<<<<< Updated upstream
     const location = useLocation();
+=======
+
+>>>>>>> Stashed changes
     const handleClickNav = (text, modOutfit) => {
         if (modOutfit) setModOutfit(modOutfit);
         const lowerText = text.toLowerCase();
         navigate(`/closet/${lowerText}`);
         setSidebarOpen(false);
     };
+
     const handleClickOutfit = (newUrl, type) => {
         if (modOutfit) {
             const updatedItems = items.map(item => {
                 if (item.type.toLowerCase() === type) {
+                    if(type === "tops"){
+                        setTop(newUrl);
+                    }
+                    if(type === "bottoms"){
+                        setBottom(newUrl);
+                    }
                     return { ...item, url: newUrl };
                 } else {
                     return item;
@@ -57,6 +76,13 @@ export default function Closet() {
             setModOutfit(false);
         }
     };
+ 
+    /*
+    const savedOutfit = (top, bottom) =>{
+        let path = '/profile'
+        setOutfit([...currOutfit, [top, bottom]])
+        navigate(path, {replace: true, state: {currOutfit: currOutfit}});
+    }*/
 
     useEffect(() => {
         navigate(`/closet/make-outfit`);
@@ -78,6 +104,7 @@ export default function Closet() {
                 setSidebarOpen={setSidebarOpen}
                 handleClick={handleClickNav}
             />
+
             <Routes>
                 <Route
                     exact
@@ -91,6 +118,13 @@ export default function Closet() {
                             handleItemClick={handleClickNav}
                             items={items}
                             redo={() => setItems(emptyItems)}
+                            save={() => {
+                                
+                                window.fits.length ? window.fits = ([...window.fits, [top,bottom]]): window.fits = ([[top,bottom]]);
+                                //alert(window.fits);
+                                /*currOutfit.length ? setOutfit([...currOutfit, [top,bottom]]): setOutfit([top,bottom]*);*/
+                                //navigate('/profile', {replace: true, state: {currOutfit: currOutfit, top: top, bottom: bottom}});
+                            }}
                         />
                     }
                 />

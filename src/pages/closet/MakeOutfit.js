@@ -33,7 +33,6 @@ export default function MakeOutfit(props) {
                     </Grid>
                 ))}
             </Grid>
-
             <Grid container spacing={1}>
                 {/* <Grid item xs={3}></Grid>
                 <Grid item xs={3}>
@@ -47,6 +46,9 @@ export default function MakeOutfit(props) {
                     <Button onClick={props.redo} variant="outlined">
                         Redo
                     </Button>
+                    <Button onClick={props.save} variant="outlined">
+                        Save
+                    </Button>
                 </Grid>
             </Grid>
         </div>
@@ -57,4 +59,5 @@ MakeOutfit.propTypes = {
     handleItemClick: PropTypes.func,
     items: PropTypes.array,
     redo: PropTypes.func,
+    save: PropTypes.func
 };
