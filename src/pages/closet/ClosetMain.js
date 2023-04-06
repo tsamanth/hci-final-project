@@ -22,10 +22,9 @@ import {
 } from './DummyData';
 import ViewPage from './ViewPage';
 import TuneIcon from '@mui/icons-material/Tune';
-
-window.fits = [];
 import { emptyItems, defaultCatagories } from './constants';
 
+window.fits = [];
 const style = {
     position: 'absolute',
     top: '50%',
