@@ -158,10 +158,13 @@ export default function Closet() {
                             redo={() => setItems(emptyItems)}
                             save={() => {
                                 
-                                window.fits.length ? window.fits = ([...window.fits, [top,bottom]]): window.fits = ([[top,bottom]]);
-                                //alert(window.fits);
-                                /*currOutfit.length ? setOutfit([...currOutfit, [top,bottom]]): setOutfit([top,bottom]*);*/
-                                //navigate('/profile', {replace: true, state: {currOutfit: currOutfit, top: top, bottom: bottom}});
+                                var urls = []
+                                items.forEach(element => {
+                                    urls.push(JSON.stringify(element.url));
+                                });
+                                
+                                alert(urls);
+                                window.fits.length ? window.fits = ([...window.fits, [urls]]): window.fits = ([[urls]]);
                             }}
                         />
                     }
