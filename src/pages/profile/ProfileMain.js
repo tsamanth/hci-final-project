@@ -30,7 +30,8 @@ export default function Profile(props) {
 
         let i = 1;
         window.fits.forEach(element => {
-            fit.push(        <div style= {{
+            fit.push(        
+            <div style= {{
                 display:"flex",
                 justifyContent:"left",
                 margin: "18px 10px",
@@ -39,8 +40,6 @@ export default function Profile(props) {
                     <h4 style = {{display: "left",}}>Style {i}</h4>
                     <Button style = {{marginLeft: "10px", marginTop: "18px", width: "10%", height: "40%"}} size = "small" variant = "outlined" onClick={() => {deleteFit(i)}}>Delete</Button>
                 </div>
-            
-                
             </div>)
             fit.push(
                 <Grid container rowSpacing={1} columnSpacing={{ xs: 2, sm:3, md: 4}}>
@@ -105,7 +104,7 @@ export default function Profile(props) {
             <div style = {{margin: "10px"}}>
                 <h3>STEM</h3>
                 <div style = {{display:"flex", justifyContent:"space-between", width:"100%"}}>
-                    <h4 style = {{display: "center", margin: "0px 50px"}}>{tops.length} posts</h4>
+                    <h4 style = {{display: "center", margin: "0px 50px"}}>{window.fits.length} posts</h4>
                 </div>
                 <div style = {{margin: "10px"}}>
                     <Button size = "small" variant = "outlined">Edit Profile</Button>
