@@ -21,7 +21,7 @@ export default function Profile(props) {
     const deleteFit = (index) => {
         if (window.fits.length > 0 && index >= 0){
             window.fits = window.fits.splice(index-1, 1);  
-            setList(window.fits);
+            setList(window.fits.splice(index-1, 1));
         }
     }
     
@@ -55,6 +55,27 @@ export default function Profile(props) {
                 <div>
                 <img style = {{width :"100%", height:"100%"}}
                     src = {element[1]}
+                />
+                </div>
+                </Grid>
+                <Grid item xs={4}>
+                <div>
+                <img style = {{width :"100%", height:"100%"}}
+                    src = {element[2]}
+                />
+                </div>
+                </Grid>
+                <Grid item xs={4}>
+                <div>
+                <img style = {{width :"100%", height:"100%"}}
+                    src = {element[3]}
+                />
+                </div>
+                </Grid>
+                <Grid item xs={4}>
+                <div>
+                <img style = {{width :"100%", height:"100%"}}
+                    src = {element[4]}
                 />
                 </div>
                 </Grid>
