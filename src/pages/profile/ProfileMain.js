@@ -5,6 +5,17 @@ import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import {
+    IconButton,
+    Modal,
+    Box,
+    Typography,
+    FormGroup,
+    FormControlLabel,
+    FormControl,
+    Checkbox,
+    TextField,
+} from '@mui/material';
 
 import app from '../../firebase';
 import {
@@ -20,6 +31,11 @@ export default function Profile(props) {
     const [bottoms, addbot] = useState([]);
     const [total, addTotal] = useState(0);
     const [list, setList] = useState(window.fits);
+    const [modalOpen, setModalOpen] = useState(false);
+    const [newUsername, setNewUsername] = useState('');
+    const [username, setUsername] = useState('STEM');
+    const handleModalOpen = () => setModalOpen(true);
+    const handleModalClose = () => setModalOpen(false);
 
     const auth = getAuth(app);
 
@@ -34,6 +50,26 @@ export default function Profile(props) {
             setList(copy);
         }
     };
+
+    const style = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 300,
+        bgcolor: 'background.paper',
+        border: '2px solid #000',
+        boxShadow: 24,
+        p: 4,
+    };
+
+    const handleTextFieldChange = e => {
+        setNewUsername(e.target.value);
+    };
+
+    const handleUsernameChange = () => {
+        setUsername(newUsername);
+    }
 
     const showOutfits = () => {
         let fit = [];
@@ -140,6 +176,40 @@ export default function Profile(props) {
         );
     };
 
+    const modal = () => {
+        return (
+            <Modal
+                open={modalOpen}
+                onClose={handleModalClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={style}>
+                    <Typography
+                        id="modal-modal-title"
+                        variant="h6"
+                        component="h3"
+                        sx={{ paddingBottom: '10px' }}
+                    >
+                        Edit Profile
+                    </Typography>
+                    <FormControl
+                        sx={{ m: 1, width: '25ch' }}
+                        variant="outlined"
+                    >
+                        <div className="edit-username">
+                            <TextField
+                                label="Username"
+                                onChange={handleTextFieldChange}
+                            />
+                            <Button onClick={handleUsernameChange} variant="outlined">Sumbit</Button>
+                        </div>
+                    </FormControl>
+                </Box>
+            </Modal>
+        );
+    };
+
     return (
         <div>
             <div
@@ -161,7 +231,7 @@ export default function Profile(props) {
                     />
                 </div>
                 <div style={{ margin: '10px' }}>
-                    <h3>STEM</h3>
+                    <h3>{username}</h3>
                     <div
                         style={{
                             display: 'flex',
@@ -174,7 +244,11 @@ export default function Profile(props) {
                         </h4>
                     </div>
                     <div style={{ margin: '10px' }}>
-                        <Button size="small" variant="outlined">
+                        <Button
+                            onClick={handleModalOpen}
+                            size="small"
+                            variant="outlined"
+                        >
                             Edit Profile
                         </Button>
                         <Button
@@ -190,6 +264,7 @@ export default function Profile(props) {
                 </div>
             </div>
             <div>{showOutfits()}</div>
+            {modal()}
         </div>
     );
 }
