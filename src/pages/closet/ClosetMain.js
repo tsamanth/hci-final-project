@@ -94,13 +94,15 @@ export default function Closet() {
     }, [items]);
     return (
         <div className="closet page">
-            <IconButton
-                className="sidebar-button"
-                aria-label="menu"
-                onClick={() => setSidebarOpen(true)}
-            >
-                <MenuIcon />
-            </IconButton>
+            {location.pathname !== '/closet/make-outfit' && (
+                <IconButton
+                    className="sidebar-button"
+                    aria-label="menu"
+                    onClick={() => setSidebarOpen(true)}
+                >
+                    <MenuIcon />
+                </IconButton>
+            )}
             {location.pathname === '/closet/make-outfit' && (
                 <TuneIcon
                     onClick={() => {
@@ -143,7 +145,6 @@ export default function Closet() {
                 setSidebarOpen={setSidebarOpen}
                 handleClick={handleClickNav}
             />
-
             <Routes>
                 <Route
                     exact
