@@ -89,67 +89,6 @@ export default function Profile(props) {
             })}
             </>
         );
-
-
-        /*
-        let i = 1;
-        window.fits.forEach(element => {
-            fit.push(        
-            <div style= {{
-                display:"flex",
-                justifyContent:"left",
-                margin: "18px 10px",
-            }}>
-
-            <div style = {{display:"flex", width:"100%"}}>
-                    <h4 style = {{display: "left",}}>Style {i}</h4>
-                    <Button key={i} style = {{marginLeft: "10px", marginTop: "18px", width: "10%", height: "40%"}} size = "small" variant = "outlined" onClick={() => { setIndex(i); deleteFit(index);}}>Delete</Button>
-                </div>
-            </div>)
-            fit.push(
-                <Grid container rowSpacing={1} columnSpacing={{ xs: 2, sm:3, md: 4}}>
-                <Grid item xs={4}>
-                <div>
-                <img style = {{width :"100%", height:"100%"}}
-                    src = {element[0]}
-                />
-                </div>
-                </Grid>
-                <Grid item xs={4}>
-                <div>
-                <img style = {{width :"100%", height:"100%"}}
-                    src = {element[1]}
-                />
-                </div>
-                </Grid>
-                <Grid item xs={4}>
-                <div>
-                <img style = {{width :"100%", height:"100%"}}
-                    src = {element[2]}
-                />
-                </div>
-                </Grid>
-                <Grid item xs={4}>
-                <div>
-                <img style = {{width :"100%", height:"100%"}}
-                    src = {element[3]}
-                />
-                </div>
-                </Grid>
-                <Grid item xs={4}>
-                <div>
-                <img style = {{width :"100%", height:"100%"}}
-                    src = {element[4]}
-                />
-                </div>
-                </Grid>
-                </Grid>
-            )
-
-            i++;
-        }); */
-
-        //return fit;
         
     }
 
