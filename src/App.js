@@ -8,9 +8,15 @@ import MakeOutfit from './pages/closet/MakeOutfit';
 import { Header } from './display';
 import { headerMapping } from './constants';
 
+//firebase imports
+import app from './firebase';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { getAuth, onAuthStateChanged, signOut, signInWithEmailAndPassword} from "firebase/auth";
+
+
 function App() {
     const location = useLocation();
-    
+
     const headerTitle = headerMapping[location.pathname || 'empty'];
     return (
         <div className="App">
