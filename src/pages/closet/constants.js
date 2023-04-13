@@ -21,4 +21,10 @@ export const emptyItems = [
     },
 ];
 
-export const defaultCatagories = ['Tops', 'Bottoms', 'Jewelry', 'Shoes', 'Other']
+export const defaultCatagories = [
+    'Tops',
+    'Bottoms',
+    'Jewelry',
+    'Shoes',
+    'Other',
+];

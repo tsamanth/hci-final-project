@@ -18,7 +18,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 const GridButtons = styled(Grid)(() => ({
     width: '50%',
-    margin: '0% 25%'
+    margin: '0% 25%',
 }));
 
 export default function MakeOutfit(props) {

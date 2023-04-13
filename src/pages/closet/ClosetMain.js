@@ -47,16 +47,14 @@ export default function Closet() {
     const [bottom, setBottom] = useState(false);
     const [currOutfit, setOutfit] = useState([]);
 
-    const url = "https://hci-final-a1f8e-default-rtdb.firebaseio.com";
+    const url = 'https://hci-final-a1f8e-default-rtdb.firebaseio.com';
     const [catagories, setCatagories] = useState(defaultCatagories);
     const navigate = useNavigate();
     const location = useLocation();
 
     const handleModalOpen = () => setModalOpen(true);
     const handleModalClose = () => setModalOpen(false);
-    const handleModalChange = ((e) => {
-
-    })
+    const handleModalChange = e => {};
     const handleClickNav = (text, modOutfit) => {
         if (modOutfit) setModOutfit(modOutfit);
         const lowerText = text.toLowerCase();
@@ -68,10 +66,10 @@ export default function Closet() {
         if (modOutfit) {
             const updatedItems = items.map(item => {
                 if (item.type.toLowerCase() === type) {
-                    if(type === "tops"){
+                    if (type === 'tops') {
                         setTop(newUrl);
                     }
-                    if(type === "bottoms"){
+                    if (type === 'bottoms') {
                         setBottom(newUrl);
                     }
                     return { ...item, url: newUrl };
@@ -83,7 +81,7 @@ export default function Closet() {
             setModOutfit(false);
         }
     };
- 
+
     /*
     const savedOutfit = (top, bottom) =>{
         let path = '/profile'
@@ -129,7 +127,12 @@ export default function Closet() {
                     </Typography>
                     <FormGroup>
                         <FormControlLabel
-                            control={<Checkbox defaultChecked onChange={handleModalChange}/>}
+                            control={
+                                <Checkbox
+                                    defaultChecked
+                                    onChange={handleModalChange}
+                                />
+                            }
                             label="Label"
                         />
                     </FormGroup>
@@ -157,12 +160,13 @@ export default function Closet() {
                             items={items}
                             redo={() => setItems(emptyItems)}
                             save={() => {
-                                
-                                var urls = []
+                                var urls = [];
                                 items.forEach(element => {
                                     urls.push(element.url);
                                 });
-                                window.fits.length ? window.fits = ([...window.fits, urls]): window.fits = ([urls]);
+                                window.fits.length
+                                    ? (window.fits = [...window.fits, urls])
+                                    : (window.fits = [urls]);
                             }}
                         />
                     }

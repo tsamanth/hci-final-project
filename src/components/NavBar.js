@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme => ({
         background: 'white',
         borderTop: 'solid black 1px',
         fontFamily: 'Cabin',
-        textTransform: "uppercase",
+        textTransform: 'uppercase',
     },
     toolbar: {
         width: '100%',
@@ -47,7 +47,11 @@ function Navbar() {
                     <Link className={classes.link} to="/closet/tops">
                         Closet
                     </Link>
-                    <Link className={classes.link} exact to="/closet/make-outfit">
+                    <Link
+                        className={classes.link}
+                        exact
+                        to="/closet/make-outfit"
+                    >
                         Make
                     </Link>
                     {/* <Link className={classes.link} to="/search">

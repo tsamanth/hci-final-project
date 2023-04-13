@@ -34,5 +34,5 @@ export const shoeImages = [
 export const otherImages = [
     'https://img1.shopcider.com/product/1677736475000-5npSfm.jpg?x-oss-process=image/resize,w_700,m_lfit/quality,Q_80/format,webp',
     'https://img1.shopcider.com/product/1667456067000-GbMk7E.jpg?x-oss-process=image/resize,w_700,m_lfit/quality,Q_80/format,webp',
-    'https://img1.shopcider.com/product/1672312813000-FJBFZS.jpg?x-oss-process=image/resize,w_700,m_lfit/quality,Q_80/format,webp'
+    'https://img1.shopcider.com/product/1672312813000-FJBFZS.jpg?x-oss-process=image/resize,w_700,m_lfit/quality,Q_80/format,webp',
 ];
