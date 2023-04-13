@@ -17,6 +17,12 @@ import { getAuth, onAuthStateChanged, signOut, signInWithEmailAndPassword} from 
 function App() {
     const location = useLocation();
 
+    //testing user login
+    const auth = getAuth(app);
+    const[user] = useAuthState(auth);
+
+    //signInWithEmailAndPassword(auth, "test@email.com", "abc123");
+
     const headerTitle = headerMapping[location.pathname || 'empty'];
     return (
         <div className="App">
