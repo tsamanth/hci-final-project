@@ -7,12 +7,19 @@ import { useNavigate } from 'react-router-dom';
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from 'react';
 
+import app from '../../firebase';
+import { getAuth, onAuthStateChanged, signOut, signInWithEmailAndPassword} from "firebase/auth";
+
+
 export default function Profile(props) {
+
     const location  = useLocation();
     const [tops, addtop] = useState([]);
     const [bottoms, addbot] = useState([]);
     const [total, addTotal] = useState(0)
     const [list, setList] = useState(window.fits);
+
+    const auth = getAuth(app);
 
     const url = "https://hci-final-a1f8e-default-rtdb.firebaseio.com";
     const navigate = useNavigate();
@@ -27,7 +34,6 @@ export default function Profile(props) {
         }
     }
     
-
     const showOutfits = () => {
         let fit = []
 
@@ -110,7 +116,9 @@ export default function Profile(props) {
                     <h4 style = {{display: "center", margin: "0px 50px"}}>{window.fits.length} posts</h4>
                 </div>
                 <div style = {{margin: "10px"}}>
-                    <Button size = "small" variant = "outlined">Edit Profile</Button>
+                    <Button size = "small" variant = "outlined" >Edit Profile</Button>
+                    <Button size = "small" variant = "outlined" onClick={() => {auth.signOut()}}>Log Out</Button>
+
                 </div>
             </div>
         </div>

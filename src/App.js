@@ -1,10 +1,12 @@
 import './App.scss';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
 import NavBar from './components/NavBar';
 import Closet from './pages/closet/ClosetMain';
 import Search from './pages/search/SearchMain';
 import Profile from './pages/profile/ProfileMain';
 import MakeOutfit from './pages/closet/MakeOutfit';
+import Login from './pages/login/LoginMain';
 import { Header } from './display';
 import { headerMapping } from './constants';
 
@@ -17,17 +19,20 @@ import { getAuth, onAuthStateChanged, signOut, signInWithEmailAndPassword} from 
 function App() {
     const location = useLocation();
 
-    //testing user login
+    //testing userLogin
     const auth = getAuth(app);
     const[user] = useAuthState(auth);
 
     //signInWithEmailAndPassword(auth, "test@email.com", "abc123");
+    
+    //uncomment to reveal login page
 
     const headerTitle = headerMapping[location.pathname || 'empty'];
     return (
         <div className="App">
             <Header>{headerTitle}</Header>
             <div className="routes">
+                {/*user? */
                 <Routes>
                     <Route
                         path="/"
@@ -37,9 +42,10 @@ function App() {
                     <Route path="/make-outfit" element={<MakeOutfit />} />
                     <Route path="/search" element={<Search />} />
                     <Route path="/profile" element={<Profile />} />
-                </Routes>
+                </Routes> /*: <Login/>*/}
             </div>
-            <NavBar />
+            {/*user ? */
+            <NavBar />  /*: <div></div>*/}
         </div>
     );
 }
