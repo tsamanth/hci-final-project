@@ -16,6 +16,11 @@ const Item = styled(Paper)(({ theme }) => ({
     justifyContent: 'center',
 }));
 
+const GridButtons = styled(Grid)(() => ({
+    width: '50%',
+    margin: '0% 25%'
+}));
+
 export default function MakeOutfit(props) {
     return (
         <div className="make-outfit">
@@ -33,24 +38,18 @@ export default function MakeOutfit(props) {
                     </Grid>
                 ))}
             </Grid>
-            <Grid container spacing={1}>
-                {/* <Grid item xs={3}></Grid>
-                <Grid item xs={3}>
-                    <Button variant="outlined">Save</Button>
-                </Grid>
-                <Grid item xs={3}>
-                    <Button variant="outlined">Redo</Button>
-                </Grid>
-                <Grid item xs={3}></Grid> */}
-                <Grid item xs={12}>
+            <GridButtons container spacing={1}>
+                <Grid item xs={6}>
                     <Button onClick={props.redo} variant="outlined">
                         Redo
                     </Button>
+                </Grid>
+                <Grid item xs={6}>
                     <Button onClick={props.save} variant="outlined">
                         Save
                     </Button>
                 </Grid>
-            </Grid>
+            </GridButtons>
         </div>
     );
 }
@@ -61,5 +60,5 @@ MakeOutfit.propTypes = {
     redo: PropTypes.func,
     catagories: PropTypes.array,
     setCatagories: PropTypes.func,
-    save: PropTypes.func
+    save: PropTypes.func,
 };
