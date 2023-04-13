@@ -1,21 +1,8 @@
 import React from 'react';
 import { Grid, Button } from '@mui/material';
-import { borderBottom } from '@mui/system';
-import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import {
-    IconButton,
-    Modal,
-    Box,
-    Typography,
-    FormGroup,
-    FormControlLabel,
-    FormControl,
-    Checkbox,
-    TextField,
-} from '@mui/material';
+import { useState } from 'react';
+import { Modal, Box, Typography, FormControl, TextField } from '@mui/material';
 
 import app from '../../firebase';
 import {
@@ -26,10 +13,6 @@ import {
 } from 'firebase/auth';
 
 export default function Profile(props) {
-    const location = useLocation();
-    const [tops, addtop] = useState([]);
-    const [bottoms, addbot] = useState([]);
-    const [total, addTotal] = useState(0);
     const [list, setList] = useState(window.fits);
     const [modalOpen, setModalOpen] = useState(false);
     const [newUsername, setNewUsername] = useState('');
@@ -69,7 +52,7 @@ export default function Profile(props) {
 
     const handleUsernameChange = () => {
         setUsername(newUsername);
-    }
+    };
 
     const showOutfits = () => {
         let fit = [];
@@ -202,7 +185,12 @@ export default function Profile(props) {
                                 label="Username"
                                 onChange={handleTextFieldChange}
                             />
-                            <Button onClick={handleUsernameChange} variant="outlined">Sumbit</Button>
+                            <Button
+                                onClick={handleUsernameChange}
+                                variant="outlined"
+                            >
+                                Sumbit
+                            </Button>
                         </div>
                     </FormControl>
                 </Box>
