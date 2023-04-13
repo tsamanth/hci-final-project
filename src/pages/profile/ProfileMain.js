@@ -13,7 +13,6 @@ export default function Profile(props) {
     const [bottoms, addbot] = useState([]);
     const [total, addTotal] = useState(0)
     const [list, setList] = useState(window.fits);
-    const [index, setIndex] = useState(-1); 
 
     const url = "https://hci-final-a1f8e-default-rtdb.firebaseio.com";
     const navigate = useNavigate();
@@ -48,35 +47,35 @@ export default function Profile(props) {
                 </div>
             </div>
                 <Grid container rowSpacing={1} columnSpacing={{ xs: 2, sm:3, md: 4}}>
-                <Grid item xs={4}>
+                <Grid item xs={3}>
                 <div>
                 <img style = {{width :"100%", height:"100%"}}
                     src = {element[0]}
                 />
                 </div>
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={3}>
                 <div>
                 <img style = {{width :"100%", height:"100%"}}
                     src = {element[1]}
                 />
                 </div>
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={3}>
                 <div>
                 <img style = {{width :"100%", height:"100%"}}
                     src = {element[2]}
                 />
                 </div>
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={3}>
                 <div>
                 <img style = {{width :"100%", height:"100%"}}
                     src = {element[3]}
                 />
                 </div>
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={3}>
                 <div>
                 <img style = {{width :"100%", height:"100%"}}
                     src = {element[4]}
@@ -124,10 +123,3 @@ export default function Profile(props) {
     )
     
 }
-
-Profile.propTypes = {
-    currOutfit: PropTypes.array,
-    top: PropTypes.string,
-    bottom: PropTypes.string
-
-};
