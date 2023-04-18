@@ -1,29 +1,42 @@
+export const blankSquare =
+    'https://fortbendseniors.org/wp-content/uploads/2019/01/blank-white-square-thumbnail.jpg';
+
 export const emptyItems = [
     {
         type: 'Tops',
-        url: 'https://fortbendseniors.org/wp-content/uploads/2019/01/blank-white-square-thumbnail.jpg',
+        url: blankSquare,
     },
     {
         type: 'Bottoms',
-        url: 'https://fortbendseniors.org/wp-content/uploads/2019/01/blank-white-square-thumbnail.jpg',
+        url: blankSquare,
     },
     {
         type: 'Jewelry',
-        url: 'https://fortbendseniors.org/wp-content/uploads/2019/01/blank-white-square-thumbnail.jpg',
+        url: blankSquare,
     },
     {
         type: 'Other',
-        url: 'https://fortbendseniors.org/wp-content/uploads/2019/01/blank-white-square-thumbnail.jpg',
+        url: blankSquare,
     },
     {
         type: 'Shoes',
-        url: 'https://fortbendseniors.org/wp-content/uploads/2019/01/blank-white-square-thumbnail.jpg',
+        url: blankSquare,
     },
 ];
 
 export const defaultCatagories = [
     'Tops',
     'Bottoms',
+    'Jewelry',
+    'Shoes',
+    'Other',
+];
+
+export const allCatagories = [
+    'Tops',
+    'Bottoms',
+    'Dresses',
+    'Sets',
     'Jewelry',
     'Shoes',
     'Other',

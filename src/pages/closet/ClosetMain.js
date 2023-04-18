@@ -22,7 +22,8 @@ import {
 } from './DummyData';
 import ViewPage from './ViewPage';
 import TuneIcon from '@mui/icons-material/Tune';
-import { emptyItems, defaultCatagories } from './constants';
+import { emptyItems, allCatagories, blankSquare } from './constants';
+import { Category } from '@mui/icons-material';
 
 window.fits = [];
 const style = {
@@ -45,16 +46,30 @@ export default function Closet() {
 
     const [top, setTop] = useState(false);
     const [bottom, setBottom] = useState(false);
-    const [currOutfit, setOutfit] = useState([]);
 
     const url = 'https://hci-final-a1f8e-default-rtdb.firebaseio.com';
-    const [catagories, setCatagories] = useState(defaultCatagories);
     const navigate = useNavigate();
     const location = useLocation();
 
     const handleModalOpen = () => setModalOpen(true);
     const handleModalClose = () => setModalOpen(false);
-    const handleModalChange = e => {};
+    const handleModalChange = e => {
+        // we want to change the items in {items}
+        const checked = e.target.checked;
+        const label = e.target.value;
+        if (checked) {
+            let newItems = [].concat(items, [
+                { type: label, url: blankSquare },
+            ]);
+            setItems(newItems);
+        } else {
+            setItems(
+                items.filter(i => {
+                    return i.type != label;
+                })
+            );
+        }
+    };
     const handleClickNav = (text, modOutfit) => {
         if (modOutfit) setModOutfit(modOutfit);
         const lowerText = text.toLowerCase();
@@ -116,8 +131,7 @@ export default function Closet() {
             <Modal
                 open={modalOpen}
                 onClose={handleModalClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
+                aria-labelledby="modal-edit-cats"
             >
                 <Box sx={style}>
                     <Typography
@@ -128,15 +142,24 @@ export default function Closet() {
                         Edit Catagories
                     </Typography>
                     <FormGroup>
-                        <FormControlLabel
-                            control={
-                                <Checkbox
-                                    defaultChecked
-                                    onChange={handleModalChange}
+                        {allCatagories.map(c => {
+                            const filteredItems = items.filter(i => {
+                                return i.type === c;
+                            });
+                            const checked = filteredItems.length > 0;
+                            return (
+                                <FormControlLabel
+                                    control={
+                                        <Checkbox
+                                            defaultChecked={checked}
+                                            onChange={handleModalChange}
+                                            value={c}
+                                        />
+                                    }
+                                    label={c}
                                 />
-                            }
-                            label="Label"
-                        />
+                            );
+                        })}
                     </FormGroup>
                 </Box>
             </Modal>
@@ -155,8 +178,6 @@ export default function Closet() {
                     path="/make-outfit"
                     element={
                         <MakeOutfit
-                            catagories={catagories}
-                            setCatagories={setCatagories}
                             handleItemClick={handleClickNav}
                             items={items}
                             redo={() => setItems(emptyItems)}
