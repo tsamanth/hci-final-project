@@ -3,6 +3,10 @@ import { Grid, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { Modal, Box, Typography, FormControl, TextField } from '@mui/material';
+import { buttonStyle } from '../../display';
+import PropTypes from 'prop-types';
+import { db } from '../../firebase';
+import { update, ref } from 'firebase/database';
 
 import app from '../../firebase';
 import {
@@ -16,7 +20,6 @@ export default function Profile(props) {
     const [list, setList] = useState(window.fits);
     const [modalOpen, setModalOpen] = useState(false);
     const [newUsername, setNewUsername] = useState('');
-    const [username, setUsername] = useState('STEM');
     const handleModalOpen = () => setModalOpen(true);
     const handleModalClose = () => setModalOpen(false);
 
@@ -51,7 +54,22 @@ export default function Profile(props) {
     };
 
     const handleUsernameChange = () => {
-        setUsername(newUsername);
+        if (newUsername && newUsername.length > 0) {
+            const updates = {
+                username: newUsername,
+            };
+            update(ref(db, 'users/' + props.userId), updates);
+        }
+    };
+
+    const handleNewProfilePicture = e => {
+        const file = e.target.files[0];
+        const imgUrl = URL.createObjectURL(file);
+        const updates = {
+            profile_picture: imgUrl,
+        };
+        update(ref(db, 'users/' + props.userId), updates);
+        handleModalClose();
     };
 
     const showOutfits = () => {
@@ -61,26 +79,12 @@ export default function Profile(props) {
             <>
                 {window.fits.map((element, id) => {
                     return (
-                        <div key={id}>
-                            <div
-                                style={{
-                                    display: 'flex',
-                                    justifyContent: 'left',
-                                    margin: '18px 10px',
-                                }}
-                            >
-                                <div style={{ display: 'flex', width: '100%' }}>
-                                    <h4 style={{ display: 'left' }}>
-                                        Style {id + 1}
-                                    </h4>
+                        <div className="saved-outfit" key={id}>
+                            <div className="style-title">
+                                <div className="items">
+                                    <h4>Style {id + 1}</h4>
                                     <Button
                                         id={id}
-                                        style={{
-                                            marginLeft: '10px',
-                                            marginTop: '18px',
-                                            width: '10%',
-                                            height: '40%',
-                                        }}
                                         size="small"
                                         variant="outlined"
                                         onClick={() => {
@@ -92,63 +96,34 @@ export default function Profile(props) {
                                 </div>
                             </div>
                             <Grid
+                                className="outfit-grid"
                                 container
                                 rowSpacing={1}
                                 columnSpacing={{ xs: 2, sm: 3, md: 4 }}
                             >
                                 <Grid item xs={3}>
                                     <div>
-                                        <img
-                                            style={{
-                                                width: '100%',
-                                                height: '100%',
-                                            }}
-                                            src={element[0]}
-                                        />
+                                        <img src={element[0]} />
                                     </div>
                                 </Grid>
                                 <Grid item xs={3}>
                                     <div>
-                                        <img
-                                            style={{
-                                                width: '100%',
-                                                height: '100%',
-                                            }}
-                                            src={element[1]}
-                                        />
+                                        <img src={element[1]} />
                                     </div>
                                 </Grid>
                                 <Grid item xs={3}>
                                     <div>
-                                        <img
-                                            style={{
-                                                width: '100%',
-                                                height: '100%',
-                                            }}
-                                            src={element[2]}
-                                        />
+                                        <img src={element[2]} />
                                     </div>
                                 </Grid>
                                 <Grid item xs={3}>
                                     <div>
-                                        <img
-                                            style={{
-                                                width: '100%',
-                                                height: '100%',
-                                            }}
-                                            src={element[3]}
-                                        />
+                                        <img src={element[3]} />
                                     </div>
                                 </Grid>
                                 <Grid item xs={3}>
                                     <div>
-                                        <img
-                                            style={{
-                                                width: '100%',
-                                                height: '100%',
-                                            }}
-                                            src={element[4]}
-                                        />
+                                        <img src={element[4]} />
                                     </div>
                                 </Grid>
                             </Grid>
@@ -177,6 +152,7 @@ export default function Profile(props) {
                         Edit Profile
                     </Typography>
                     <FormControl
+                        className="edit-profile"
                         sx={{ m: 1, width: '25ch' }}
                         variant="outlined"
                     >
@@ -186,12 +162,28 @@ export default function Profile(props) {
                                 onChange={handleTextFieldChange}
                             />
                             <Button
+                                className="submit-button"
                                 onClick={handleUsernameChange}
-                                variant="outlined"
+                                variant="contained"
+                                sx={buttonStyle}
                             >
-                                Sumbit
+                                Done
                             </Button>
                         </div>
+                        <Button
+                            variant="contained"
+                            sx={buttonStyle}
+                            component="label"
+                        >
+                            Upload Profile Picture
+                            <input
+                                hidden
+                                accept="image/*"
+                                multiple
+                                type="file"
+                                onChange={handleNewProfilePicture}
+                            />
+                        </Button>
                     </FormControl>
                 </Box>
             </Modal>
@@ -199,51 +191,32 @@ export default function Profile(props) {
     };
 
     return (
-        <div>
-            <div
-                style={{
-                    display: 'flex',
-                    justifyContent: 'space-evenly',
-                    margin: '10px 10px',
-                    borderBottom: '1px solid grey',
-                }}
-            >
+        <div className="profile">
+            <div className="header">
                 <div>
-                    <img
-                        style={{
-                            width: '140px',
-                            height: '140px',
-                            borderRadius: '80px',
-                        }}
-                        src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-                    />
+                    <img className="profile-img" src={props.profilePicture} />
                 </div>
-                <div style={{ margin: '10px' }}>
-                    <h3>{username}</h3>
-                    <div
-                        style={{
-                            display: 'flex',
-                            justifyContent: 'space-evenly',
-                            width: '100%',
-                        }}
-                    >
-                        <h4 style={{ display: 'center', margin: '0px 50px' }}>
-                            {window.fits.length} posts
-                        </h4>
+                <div className="info">
+                    <h3>{props.username}</h3>
+                    <div className="num-posts">
+                        <h4>{window.fits.length} posts</h4>
                     </div>
-                    <div style={{ margin: '10px' }}>
+                    <div className="button-container">
                         <Button
                             onClick={handleModalOpen}
                             size="small"
-                            variant="outlined"
+                            variant="contained"
+                            sx={buttonStyle}
                         >
                             Edit Profile
                         </Button>
                         <Button
                             size="small"
-                            variant="outlined"
+                            variant="contained"
+                            sx={buttonStyle}
                             onClick={() => {
                                 auth.signOut();
+                                navigate('/login');
                             }}
                         >
                             Log Out
@@ -256,3 +229,9 @@ export default function Profile(props) {
         </div>
     );
 }
+
+Profile.propTypes = {
+    profilePicture: PropTypes.string,
+    username: PropTypes.string,
+    userId: PropTypes.string,
+};

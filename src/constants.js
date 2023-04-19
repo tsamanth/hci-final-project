@@ -6,7 +6,10 @@ export const headerMapping = {
     '/closet/jewelry': 'My Closet - Jewelry',
     '/closet/shoes': 'My Closet - Shoes',
     '/closet/other': 'My Closet - Other',
+    '/closet/sets': 'My Closet - sets',
+    '/closet/dresses': 'My Closet - dresses',
     '/profile': 'My Profile',
+    '/login': 'log in',
     empty: 'empty',
 };
 

@@ -13,41 +13,20 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import MakeOutfit from './MakeOutfit';
 import { useNavigate } from 'react-router-dom';
-import {
-    bottomsImages,
-    topImages,
-    jewelryImages,
-    otherImages,
-    shoeImages,
-} from './DummyData';
 import ViewPage from './ViewPage';
 import TuneIcon from '@mui/icons-material/Tune';
 import { emptyItems, allCatagories, blankSquare } from './constants';
-import { Category } from '@mui/icons-material';
+import PropTypes from 'prop-types';
+import { modalStyle } from '../../display';
 
 window.fits = [];
-const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 300,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-};
 
-export default function Closet() {
+export default function Closet(props) {
     const [modalOpen, setModalOpen] = useState(false);
     const [sidebarOpen, setSidebarOpen] = useState(false);
-    const [modOutfit, setModOutfit] = useState(false);
+    const [editMode, setEditMode] = useState(false);
     const [items, setItems] = useState(emptyItems);
-
-    const [top, setTop] = useState(false);
-    const [bottom, setBottom] = useState(false);
-
-    const url = 'https://hci-final-a1f8e-default-rtdb.firebaseio.com';
+    const { setModOutfit, modOutfit, userId, closetData } = props;
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -81,12 +60,6 @@ export default function Closet() {
         if (modOutfit) {
             const updatedItems = items.map(item => {
                 if (item.type.toLowerCase() === type) {
-                    if (type === 'tops') {
-                        setTop(newUrl);
-                    }
-                    if (type === 'bottoms') {
-                        setBottom(newUrl);
-                    }
                     return { ...item, url: newUrl };
                 } else {
                     return item;
@@ -118,22 +91,24 @@ export default function Closet() {
                     <MenuIcon />
                 </IconButton>
             )}
-            {location.pathname === '/closet/make-outfit' && (
-                <TuneIcon
-                    onClick={() => {
-                        console.log('ah');
+
+            <TuneIcon
+                onClick={() => {
+                    if (location.pathname === '/closet/make-outfit') {
                         handleModalOpen();
-                    }}
-                    className="edit-button"
-                    aria-label="edit"
-                />
-            )}
+                    } else {
+                        setEditMode(!editMode);
+                    }
+                }}
+                className="edit-button"
+                aria-label="edit"
+            />
             <Modal
                 open={modalOpen}
                 onClose={handleModalClose}
                 aria-labelledby="modal-edit-cats"
             >
-                <Box sx={style}>
+                <Box sx={modalStyle}>
                     <Typography
                         id="modal-modal-title"
                         variant="h6"
@@ -144,7 +119,7 @@ export default function Closet() {
                     <FormGroup>
                         {allCatagories.map(c => {
                             const filteredItems = items.filter(i => {
-                                return i.type === c;
+                                return i.type.toLowerCase() === c;
                             });
                             const checked = filteredItems.length > 0;
                             return (
@@ -193,57 +168,36 @@ export default function Closet() {
                         />
                     }
                 />
-                <Route
-                    path="/tops"
-                    element={
-                        <ViewPage
-                            type="tops"
-                            handleClick={handleClickOutfit}
-                            images={topImages}
+                {allCatagories.map(c => {
+                    return (
+                        <Route
+                            path={`/${c}`}
+                            element={
+                                <ViewPage
+                                    type={c}
+                                    handleClick={handleClickOutfit}
+                                    images={
+                                        closetData &&
+                                        closetData.hasOwnProperty(c)
+                                            ? closetData[c]
+                                            : []
+                                    }
+                                    modOutfitOn={modOutfit}
+                                    userId={userId}
+                                    editMode={editMode}
+                                />
+                            }
                         />
-                    }
-                />
-                <Route
-                    path="/bottoms"
-                    element={
-                        <ViewPage
-                            type="bottoms"
-                            handleClick={handleClickOutfit}
-                            images={bottomsImages}
-                        />
-                    }
-                />
-                <Route
-                    path="/jewelry"
-                    element={
-                        <ViewPage
-                            type="jewelry"
-                            handleClick={handleClickOutfit}
-                            images={jewelryImages}
-                        />
-                    }
-                />
-                <Route
-                    path="/other"
-                    element={
-                        <ViewPage
-                            type="other"
-                            handleClick={handleClickOutfit}
-                            images={otherImages}
-                        />
-                    }
-                />
-                <Route
-                    path="/shoes"
-                    element={
-                        <ViewPage
-                            type="shoes"
-                            handleClick={handleClickOutfit}
-                            images={shoeImages}
-                        />
-                    }
-                />
+                    );
+                })}
             </Routes>
         </div>
     );
 }
+
+Closet.propTypes = {
+    setModOutfit: PropTypes.func,
+    modOutfit: PropTypes.bool,
+    userId: PropTypes.string,
+    closetData: PropTypes.object,
+};

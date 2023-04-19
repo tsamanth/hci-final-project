@@ -8,6 +8,7 @@ import {
     ListItemText,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { allCatagories } from './constants';
 
 export default function Sidebar(props) {
     const handleClose = () => {
@@ -24,20 +25,18 @@ export default function Sidebar(props) {
             >
                 <Box sx={{ width: 250 }} role="presentation">
                     <List>
-                        {['Tops', 'Bottoms', 'Jewelry', 'Shoes', 'Other'].map(
-                            text => (
-                                <ListItem key={text} disablePadding>
-                                    <ListItemButton>
-                                        <ListItemText
-                                            primary={text}
-                                            onClick={() => {
-                                                props.handleClick(text);
-                                            }}
-                                        />
-                                    </ListItemButton>
-                                </ListItem>
-                            )
-                        )}
+                        {allCatagories.map(text => (
+                            <ListItem key={text} disablePadding>
+                                <ListItemButton>
+                                    <ListItemText
+                                        primary={text}
+                                        onClick={() => {
+                                            props.handleClick(text);
+                                        }}
+                                    />
+                                </ListItemButton>
+                            </ListItem>
+                        ))}
                     </List>
                 </Box>
             </Drawer>

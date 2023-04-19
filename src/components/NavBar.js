@@ -1,12 +1,10 @@
 import React from 'react';
-import {
-    AppBar,
-    Toolbar,
-    CssBaseline,
-    Typography,
-    makeStyles,
-} from '@material-ui/core';
+import { AppBar, Toolbar, CssBaseline, makeStyles } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import CheckroomIcon from '@mui/icons-material/Checkroom';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 
 const useStyles = makeStyles(theme => ({
     appBar: {
@@ -15,7 +13,8 @@ const useStyles = makeStyles(theme => ({
         background: 'white',
         borderTop: 'solid black 1px',
         fontFamily: 'Cabin',
-        textTransform: 'uppercase',
+        fontSize: '15px',
+        textTransform: 'lowercase',
     },
     toolbar: {
         width: '100%',
@@ -29,46 +28,51 @@ const useStyles = makeStyles(theme => ({
     link: {
         textDecoration: 'none',
         color: 'black',
-        '&:hover': {
-            color: 'dark-grey',
-            background: 'lightGrey',
-            borderRadius: '5px',
-        },
     },
 }));
 
-function Navbar() {
+export default function Navbar(props) {
     const classes = useStyles();
+    const setModOutfitFalse = () => {
+        props.setModOutfit(false);
+    };
     return (
         <AppBar position="fixed" className={classes.appBar}>
             <CssBaseline />
-            <Toolbar className={classes.toolbar}>
+            <Toolbar id="nav-bar" className={classes.toolbar}>
                 <div className={classes.navlinks}>
-                    <Link className={classes.link} to="/closet/tops">
-                        Closet
+                    <Link
+                        onClick={setModOutfitFalse}
+                        className={classes.link}
+                        to="/closet/tops"
+                    >
+                        <CheckroomIcon className="icon" sx={{ fontSize: 32 }} />
+                        <p>Closet</p>
                     </Link>
                     <Link
                         className={classes.link}
                         exact
                         to="/closet/make-outfit"
                     >
-                        Make
+                        <AddCircleOutlineIcon
+                            className="icon"
+                            sx={{ fontSize: 32 }}
+                        />
+                        <p>Make</p>
                     </Link>
-                    {/* <Link className={classes.link} to="/search">
-                        Search
-                    </Link>
-                    <Link className={classes.link} to="/add">
-                        Add
-                    </Link> */}
-                    {/* <Link className={classes.link} to="/explore">
-                        Explore
-                    </Link> */}
                     <Link className={classes.link} to="/profile">
-                        Profile
+                        <AccountCircleOutlinedIcon
+                            className="icon"
+                            sx={{ fontSize: 32 }}
+                        />
+                        <p>Profile</p>
                     </Link>
                 </div>
             </Toolbar>
         </AppBar>
     );
 }
-export default Navbar;
+
+Navbar.propTypes = {
+    setModOutfit: PropTypes.func,
+};

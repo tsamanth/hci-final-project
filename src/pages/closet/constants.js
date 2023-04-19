@@ -33,11 +33,21 @@ export const defaultCatagories = [
 ];
 
 export const allCatagories = [
-    'Tops',
-    'Bottoms',
-    'Dresses',
-    'Sets',
-    'Jewelry',
-    'Shoes',
-    'Other',
+    'tops',
+    'bottoms',
+    'dresses',
+    'sets',
+    'jewelry',
+    'shoes',
+    'other',
 ];
+
+export const initalCloset = {
+    tops: [],
+    bottoms: [],
+    dresses: [],
+    sets: [],
+    jewelry: [],
+    shoes: [],
+    other: [],
+};

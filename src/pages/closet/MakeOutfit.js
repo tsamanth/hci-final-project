@@ -2,6 +2,7 @@ import { Grid, Paper, Button } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { buttonStyle } from '../../display';
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -17,8 +18,7 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 const GridButtons = styled(Grid)(() => ({
-    width: '50%',
-    margin: '0% 25%',
+    width: '100%',
 }));
 
 export default function MakeOutfit(props) {
@@ -38,14 +38,22 @@ export default function MakeOutfit(props) {
                     </Grid>
                 ))}
             </Grid>
-            <GridButtons container spacing={1}>
-                <Grid item xs={6}>
-                    <Button onClick={props.redo} variant="outlined">
+            <GridButtons className="button-container" container spacing={1}>
+                <Grid item xs={3}>
+                    <Button
+                        sx={buttonStyle}
+                        onClick={props.redo}
+                        variant="contained"
+                    >
                         Redo
                     </Button>
                 </Grid>
                 <Grid item xs={6}>
-                    <Button onClick={props.save} variant="outlined">
+                    <Button
+                        sx={buttonStyle}
+                        onClick={props.save}
+                        variant="contained"
+                    >
                         Save
                     </Button>
                 </Grid>

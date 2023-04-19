@@ -1,5 +1,9 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
+import { Button, TextField } from '@mui/material';
+import { buttonStyle } from '../../display';
+import logo from './logo.png';
+import { useNavigate } from 'react-router-dom';
 
 //firebase imports
 import app from '../../firebase';
@@ -18,38 +22,43 @@ export default function Login(props) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const auth = getAuth(app);
+    const navigate = useNavigate();
 
     const userLogin = () => {
         signInWithEmailAndPassword(auth, email, password);
+        navigate('/closet/make-outfit');
     };
 
     return (
-        <div className="Login">
-            <h4>Log in</h4>
-            <div className="User">
-                <input
-                    type="text"
+        <div className="login-page">
+            <img src={logo} />
+            <div className="user">
+                <TextField
+                    label="Username"
                     placeholder="test@email.com"
-                    value={email}
+                    color="secondary"
                     onChange={e => setEmail(e.target.value)}
                 />
             </div>
-            <div className="Pass">
-                <input
+            <div className="pass">
+                <TextField
+                    label="Password"
                     type="password"
                     placeholder="abc123"
-                    value={password}
                     onChange={e => setPassword(e.target.value)}
                 />
             </div>
-            <button
+            <Button
                 className="btn"
+                sx={buttonStyle}
+                variant="contained"
+                color="secondary"
                 onClick={() => {
                     userLogin();
                 }}
             >
                 Sign in
-            </button>
+            </Button>
         </div>
     );
 }
