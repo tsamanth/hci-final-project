@@ -19,6 +19,17 @@ import { emptyItems, allCatagories, blankSquare } from './constants';
 import PropTypes from 'prop-types';
 import { modalStyle } from '../../display';
 
+import app from '../../firebase';
+import { ref, onValue, get, set } from 'firebase/database';
+import { db } from '../../firebase';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import {
+    getAuth,
+    onAuthStateChanged,
+    signOut,
+    signInWithEmailAndPassword,
+} from 'firebase/auth';
+
 
 export default function Closet(props) {
     const [modalOpen, setModalOpen] = useState(false);
@@ -28,6 +39,13 @@ export default function Closet(props) {
     const { setModOutfit, modOutfit, userId, closetData } = props;
     const navigate = useNavigate();
     const location = useLocation();
+
+    const auth = getAuth(app);
+
+    if(!props.userId){
+        auth.signOut();
+        navigate('/login');
+    }
 
     const databaseURL = 'https://hci-final-a1f8e-default-rtdb.firebaseio.com/';
     //alert(window.fits);
@@ -49,9 +67,6 @@ export default function Closet(props) {
             window.fits = [];
         }
     );
-    //alert(window.fits);
-
-
 
     const handleModalOpen = () => setModalOpen(true);
     const handleModalClose = () => setModalOpen(false);
