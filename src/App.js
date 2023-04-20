@@ -103,16 +103,17 @@ function App() {
                 <div className="routes">
                     <Routes>
                     {!user ? (
+                        <>
                         <Route
-                            path="/"
+                            path="/*"
                             element={<Navigate replace to="/login" />}
                         />
-                       
-                    ) : ( <Route
+                        <Route path="/login" element={<Login />} />
+                        </>)
+                    : ( <><Route
                             path="/"
                             element={<Navigate replace to="/closet" />}
-                        />) }
-                        <Route path="/login" element={<Login />} />
+                        />
                         <Route
                             path="/closet/*"
                             element={
@@ -134,7 +135,8 @@ function App() {
                                 />
                             }
                         />
-                        <Route path="/login" element={<Login />} />
+                        <Route path="/login" element={<Login />} /></>
+                        ) }
                     </Routes>
                 </div>
 
