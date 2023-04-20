@@ -109,9 +109,7 @@ export default function Closet(props) {
     }*/
 
     useEffect(() => {
-        if(modOutfit){
-            navigate(`/closet/make-outfit`);
-        }
+        navigate(`/closet/make-outfit`);
     }, [items]);
     return (
         <div className="closet page">
