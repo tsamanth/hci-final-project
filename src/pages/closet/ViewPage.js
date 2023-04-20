@@ -1,5 +1,13 @@
 import PropTypes from 'prop-types';
-import { Box, Grid, Paper, Modal, Typography, FormGroup, getImageListItemBarUtilityClass } from '@mui/material';
+import {
+    Box,
+    Grid,
+    Paper,
+    Modal,
+    Typography,
+    FormGroup,
+    getImageListItemBarUtilityClass,
+} from '@mui/material';
 import { styled } from '@mui/material/styles';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { useState } from 'react';
@@ -10,9 +18,14 @@ import { db } from '../../firebase';
 import { update, ref } from 'firebase/database';
 
 import app from '../../firebase';
-import { getAuth} from "firebase/auth";
-import { getStorage, ref as sRef, uploadBytes, uploadBytesResumable, getDownloadURL} from "firebase/storage";
-
+import { getAuth } from 'firebase/auth';
+import {
+    getStorage,
+    ref as sRef,
+    uploadBytes,
+    uploadBytesResumable,
+    getDownloadURL,
+} from 'firebase/storage';
 
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
 
@@ -36,7 +49,6 @@ export default function ViewPage(props) {
 
     const storage = getStorage(app);
     const auth = getAuth(app);
-    const [storeLink, setLink] = useState('');
     const databaseURL = 'https://hci-final-a1f8e-default-rtdb.firebaseio.com/';
 
     const [imgList, setList] = useState([]);
@@ -45,79 +57,74 @@ export default function ViewPage(props) {
     const uploadItem = e => {
         //uploading item
         const file = e.target.files[0];
-        const imgUrl = window.URL.createObjectURL(file);
 
         const metadata = {
-            contentType: 'image/jpeg'
-          };
-          
-          // Upload file and metadata to the object
-          const storageRef = sRef(storage, `images/${props.userId}/` +file.name);
-          const uploadTask = uploadBytesResumable(storageRef, file, metadata);
-          let url = '';
-          
-          // Listen for state changes, errors, and completion of the upload.
-          uploadTask.on('state_changed',
-            (snapshot) => {
-              // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-              const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-              console.log('Upload is ' + progress + '% done');
-              switch (snapshot.state) {
-                case 'paused':
-                  console.log('Upload is paused');
-                  break;
-                case 'running':
-                  console.log('Upload is running');
-                  break;
-              }
-            }, 
-            (error) => {
-              // A full list of error codes is available at
-              // https://firebase.google.com/docs/storage/web/handle-errors
-              switch (error.code) {
-                case 'storage/unauthorized':
-                  // User doesn't have permission to access the object
-                  break;
-                case 'storage/canceled':
-                  // User canceled the upload
-                  break;
-          
-                // ...
-          
-                case 'storage/unknown':
-                  // Unknown error occurred, inspect error.serverResponse
-                  break;
-              }
-            }, 
-            () => {
-              // Upload completed successfully, now we can get the download URL
-              getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                console.log('File available at', downloadURL);
-                setLink(downloadURL);
-              });
-            }
-          );
-
-        const updates = {
-            [props.type]: [...props.images, storeLink],
+            contentType: 'image/jpeg',
         };
 
-        //alert(JSON.stringify(updates[props.type]));
-        //upload changes to database
+        // Upload file and metadata to the object
+        const storageRef = sRef(storage, `images/${props.userId}/` + file.name);
+        const uploadTask = uploadBytesResumable(storageRef, file, metadata);
+        let url = '';
 
-        fetch(`${databaseURL + `users/${props.userId}/closet/${props.type}`}/.json`, {
-            method: "PUT",
-            body: JSON.stringify(updates[props.type])
-          }).then((res) => {
-            if (res.status !== 200) {
-              alert("Save Error");
-            } else {
-              //alert("List Saved!");
-              return;
+        // Listen for state changes, errors, and completion of the upload.
+        uploadTask.on(
+            'state_changed',
+            snapshot => {
+                // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                const progress =
+                    (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                console.log('Upload is ' + progress + '% done');
+                switch (snapshot.state) {
+                    case 'paused':
+                        console.log('Upload is paused');
+                        break;
+                    case 'running':
+                        console.log('Upload is running');
+                        break;
+                }
+            },
+            error => {
+                // A full list of error codes is available at
+                // https://firebase.google.com/docs/storage/web/handle-errors
+                switch (error.code) {
+                    case 'storage/unauthorized':
+                        // User doesn't have permission to access the object
+                        break;
+                    case 'storage/canceled':
+                        // User canceled the upload
+                        break;
+                    case 'storage/unknown':
+                        // Unknown error occurred, inspect error.serverResponse
+                        break;
+                }
+            },
+            () => {
+                // Upload completed successfully, now we can get the download URL
+                getDownloadURL(uploadTask.snapshot.ref).then(downloadURL => {
+                    const updates = {
+                        [props.type]: [...props.images, downloadURL],
+                    };
+
+                    fetch(
+                        `${
+                            databaseURL +
+                            `users/${props.userId}/closet/${props.type}`
+                        }/.json`,
+                        {
+                            method: 'PUT',
+                            body: JSON.stringify(updates[props.type]),
+                        }
+                    ).then(res => {
+                        if (res.status !== 200) {
+                            alert('Save Error');
+                        } else {
+                            return;
+                        }
+                    });
+                });
             }
-          });
-
-        //update(ref(db, `users/${props.userId}/closet`), updates);
+        );
     };
 
     const removeItem = (url, type) => {
@@ -131,7 +138,7 @@ export default function ViewPage(props) {
     };
 
     let listImages = <></>;
-    
+
     if (props.images.length > 0 && Array.isArray(props.images)) {
         listImages = props.images.map(url => (
             <Grid item xs={4} key={url}>
