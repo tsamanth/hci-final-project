@@ -109,7 +109,9 @@ export default function Closet(props) {
     }*/
 
     useEffect(() => {
-        navigate(`/closet/make-outfit`);
+        if(items != emptyItems){
+            navigate(`/closet/make-outfit`);
+        }
     }, [items]);
     return (
         <div className="closet page">
