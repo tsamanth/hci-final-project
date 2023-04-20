@@ -173,6 +173,8 @@ export default function Profile(props) {
                                     <Button
                                         id={id}
                                         size="small"
+                                        sx={buttonStyle}
+                                        color="delete"
                                         variant="outlined"
                                         onClick={() => {
                                             deleteFit(id);
@@ -276,7 +278,7 @@ export default function Profile(props) {
                 <div className="info">
                     <h3>{props.username}</h3>
                     <div className="num-posts">
-                        <h4>{window.fits.length} posts</h4>
+                        <h4>{window.fits.length} {window.fits.length === 1 ? "outfit" : "outfits"}</h4>
                     </div>
                     <div className="button-container">
                         <Button

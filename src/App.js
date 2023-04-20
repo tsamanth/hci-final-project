@@ -37,6 +37,9 @@ const theme = createTheme({
         secondary: {
             main: Theme.grey,
         },
+        delete: {
+            main: '#000'
+        }
     },
     typography: {
         fontFamily: 'Cabin',
