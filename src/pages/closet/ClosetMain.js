@@ -19,7 +19,6 @@ import { emptyItems, allCatagories, blankSquare } from './constants';
 import PropTypes from 'prop-types';
 import { modalStyle } from '../../display';
 
-window.fits = [];
 
 export default function Closet(props) {
     const [modalOpen, setModalOpen] = useState(false);
@@ -31,8 +30,28 @@ export default function Closet(props) {
     const location = useLocation();
 
     const databaseURL = 'https://hci-final-a1f8e-default-rtdb.firebaseio.com/';
-          //alert(window.fits);
-    
+    //alert(window.fits);
+    //alert(props.userId);
+    fetch(`${databaseURL + `users/${props.userId}/saved`}/.json`)
+    .then((res) => {
+        console.log(res);
+        if (res.status !== 200) {
+        //alert("error getting list");
+        } else {
+            //alert("data retrieved!");
+        return res.json();
+        }
+    })
+    .then((res) => {
+        if(res){
+            window.fits = res;
+        } else 
+            window.fits = [];
+        }
+    );
+    //alert(window.fits);
+
+
 
     const handleModalOpen = () => setModalOpen(true);
     const handleModalClose = () => setModalOpen(false);

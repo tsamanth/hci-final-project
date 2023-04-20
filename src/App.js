@@ -43,6 +43,8 @@ const theme = createTheme({
     },
 });
 
+window.fits = [];
+
 function App() {
     const location = useLocation();
 
