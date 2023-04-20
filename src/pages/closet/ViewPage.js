@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { Box, Grid, Paper, Modal, Typography, FormGroup } from '@mui/material';
+import { Box, Grid, Paper, Modal, Typography, FormGroup, getImageListItemBarUtilityClass } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { useState } from 'react';
@@ -37,6 +37,9 @@ export default function ViewPage(props) {
     const storage = getStorage(app);
     const auth = getAuth(app);
     const [storeLink, setLink] = useState('');
+    const databaseURL = 'https://hci-final-a1f8e-default-rtdb.firebaseio.com/';
+
+    const [imgList, setList] = useState([]);
 
     //alert(imagesRef);
     const uploadItem = e => {
@@ -49,7 +52,7 @@ export default function ViewPage(props) {
           };
           
           // Upload file and metadata to the object
-          const storageRef = sRef(storage, 'images/' + file.name);
+          const storageRef = sRef(storage, `images/${props.userId}/` +file.name);
           const uploadTask = uploadBytesResumable(storageRef, file, metadata);
           let url = '';
           
@@ -96,10 +99,25 @@ export default function ViewPage(props) {
           );
 
         const updates = {
-            [props.type]: [...props.images, imgUrl],
+            [props.type]: [...props.images, storeLink],
         };
 
-        update(ref(db, `users/${props.userId}/closet`), updates);
+        //alert(JSON.stringify(updates[props.type]));
+        //upload changes to database
+
+        fetch(`${databaseURL + `users/${props.userId}/closet/${props.type}`}/.json`, {
+            method: "PUT",
+            body: JSON.stringify(updates[props.type])
+          }).then((res) => {
+            if (res.status !== 200) {
+              alert("Save Error");
+            } else {
+              //alert("List Saved!");
+              return;
+            }
+          });
+
+        //update(ref(db, `users/${props.userId}/closet`), updates);
     };
 
     const removeItem = (url, type) => {
@@ -111,7 +129,9 @@ export default function ViewPage(props) {
         };
         update(ref(db, `users/${props.userId}/closet`), updates);
     };
+
     let listImages = <></>;
+    
     if (props.images.length > 0 && Array.isArray(props.images)) {
         listImages = props.images.map(url => (
             <Grid item xs={4} key={url}>
