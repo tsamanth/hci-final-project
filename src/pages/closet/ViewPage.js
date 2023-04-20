@@ -129,6 +129,7 @@ export default function ViewPage(props) {
 
     const removeItem = (url, type) => {
         const newImgs = props.images.filter(i => {
+            //push new url into base
             return i != url;
         });
         const updates = {
