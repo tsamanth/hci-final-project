@@ -16,8 +16,16 @@ import {
     signInWithEmailAndPassword,
 } from 'firebase/auth';
 
+import {
+    getStorage,
+    ref as sRef,
+    uploadBytes,
+    uploadBytesResumable,
+    getDownloadURL,
+} from 'firebase/storage';
+
 export default function Profile(props) {
-    const databaseURL = 'https://hci-final-a1f8e-default-rtdb.firebaseio.com';
+    const databaseURL = 'https://hci-final-a1f8e-default-rtdb.firebaseio.com/';
 
     const [list, setList] = useState(window.fits);
     const [modalOpen, setModalOpen] = useState(false);
@@ -26,6 +34,7 @@ export default function Profile(props) {
     const handleModalClose = () => setModalOpen(false);
 
     const auth = getAuth(app);
+    const storage = getStorage(app);
 
     const navigate = useNavigate();
 
@@ -81,10 +90,73 @@ export default function Profile(props) {
     const handleNewProfilePicture = e => {
         const file = e.target.files[0];
         const imgUrl = URL.createObjectURL(file);
-        const updates = {
-            profile_picture: imgUrl,
+
+        const metadata = {
+            contentType: 'image/jpeg',
         };
-        update(ref(db, 'users/' + props.userId), updates);
+
+        const storageRef = sRef(storage, `images/${props.userId}/` + file.name);
+        const uploadTask = uploadBytesResumable(storageRef, file, metadata);
+
+        uploadTask.on(
+            'state_changed',
+            snapshot => {
+                // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                const progress =
+                    (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                console.log('Upload is ' + progress + '% done');
+                switch (snapshot.state) {
+                    case 'paused':
+                        console.log('Upload is paused');
+                        break;
+                    case 'running':
+                        console.log('Upload is running');
+                        break;
+                }
+            },
+            error => {
+                // A full list of error codes is available at
+                // https://firebase.google.com/docs/storage/web/handle-errors
+                switch (error.code) {
+                    case 'storage/unauthorized':
+                        // User doesn't have permission to access the object
+                        break;
+                    case 'storage/canceled':
+                        // User canceled the upload
+                        break;
+                    case 'storage/unknown':
+                        // Unknown error occurred, inspect error.serverResponse
+                        break;
+                }
+            },
+            () => {
+                // Upload completed successfully, now we can get the download URL
+                getDownloadURL(uploadTask.snapshot.ref).then(downloadURL => {
+                    const updates = {
+                        profile_picture: downloadURL,
+                    };
+
+                    fetch(
+                        `${
+                            databaseURL +
+                            `users/${props.userId}/profile_picture`
+                        }/.json`,
+                        {
+                            method: 'PUT',
+                            body: JSON.stringify(downloadURL),
+                        }
+                    ).then(res => {
+                        if (res.status !== 200) {
+                            alert('Save Error');
+                        } else {
+                            return;
+                        }
+                    });
+                });
+            }
+        );
+
+        //update(ref(db, 'users/' + props.userId), updates);
         handleModalClose();
     };
 
