@@ -74,24 +74,6 @@ export default function Closet(props) {
         }
     };
 
-    if(props.userId){
-        fetch(`${databaseURL + `users/${props.userId}/saved`}/.json`)
-            .then((res) => {
-                console.log(res);
-                if (res.status !== 200) {
-                //alert("error getting list");
-                } else {
-                    //alert("data retrieved!");
-                return res.json();
-                }
-            })
-            .then((res) => {
-                if(res){
-                    window.fits = res;
-                }
-                }
-            );
-    }
 
     /*
     const savedOutfit = (top, bottom) =>{

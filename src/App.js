@@ -46,11 +46,13 @@ const theme = createTheme({
 function App() {
     const location = useLocation();
 
+    
     //testing userLogin
     const auth = getAuth(app);
     const [user] = useAuthState(auth);
     const [modOutfit, setModOutfit] = useState(false);
     const navigate = useNavigate();
+
     const [userData, setUserData] = useState({
         userid: '',
         username: '',

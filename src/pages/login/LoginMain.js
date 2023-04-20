@@ -25,8 +25,42 @@ export default function Login(props) {
     const navigate = useNavigate();
 
     const userLogin = () => {
-        signInWithEmailAndPassword(auth, email, password);
-        navigate('/closet/make-outfit');
+        signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            // Signed in 
+            navigate('/closet/make-outfit');
+
+            //load in saved outfits 
+            const databaseURL = 'https://hci-final-a1f8e-default-rtdb.firebaseio.com/';
+            const userid = email.split('@')[0];
+            if(userid){
+                fetch(`${databaseURL + `users/${userid}/saved`}/.json`)
+                    .then((res) => {
+                        console.log(res);
+                        if (res.status !== 200) {
+                        //alert("error getting list");
+                        } else {
+                            //alert("data retrieved!");
+                        return res.json();
+                        }
+                    })
+                    .then((res) => {
+                        if(res){
+                            window.fits = res;
+                        } else 
+                            window.fits = [];
+                        }
+                    );
+            } 
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            alert(error.message);
+        });
+        
+        //signInWithEmailAndPassword(auth, email, password);
+
     };
 
     return (

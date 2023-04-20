@@ -23,11 +23,10 @@ export default function Profile(props) {
     const handleModalOpen = () => setModalOpen(true);
     const handleModalClose = () => setModalOpen(false);
 
-    const databaseURL = 'https://hci-final-a1f8e-default-rtdb.firebaseio.com/';
-
     const auth = getAuth(app);
 
-    const url = 'https://hci-final-a1f8e-default-rtdb.firebaseio.com';
+    const databaseURL = 'https://hci-final-a1f8e-default-rtdb.firebaseio.com';
+    
     const navigate = useNavigate();
 
     const deleteFit = index => {
