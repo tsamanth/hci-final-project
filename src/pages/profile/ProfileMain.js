@@ -166,6 +166,7 @@ export default function Profile(props) {
         return (
             <>
                 {window.fits.map((element, id) => {
+                    //alert(element.length);
                     return (
                         <div className="saved-outfit" key={id}>
                             <div className="style-title">
@@ -183,6 +184,7 @@ export default function Profile(props) {
                                     </Button>
                                 </div>
                             </div>
+                            
                             <Grid
                                 className="outfit-grid"
                                 container

@@ -166,8 +166,8 @@ export default function ViewPage(props) {
                     {listImages}
                     {!props.modOutfitOn && (
                         <Grid item xs={4}>
-                            <Item onClick={handleModalOpen}>
-                                <AddCircleOutlineIcon className="add-clothing-button" />
+                            <Item onClick={handleModalOpen} style={{alignContent: "center"}}>
+                                <AddCircleOutlineIcon className="add-clothing-button"/>
                             </Item>
                         </Grid>
                     )}
