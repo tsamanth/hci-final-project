@@ -23,6 +23,8 @@ export default function Profile(props) {
     const handleModalOpen = () => setModalOpen(true);
     const handleModalClose = () => setModalOpen(false);
 
+    const databaseURL = 'https://hci-final-a1f8e-default-rtdb.firebaseio.com/';
+
     const auth = getAuth(app);
 
     const url = 'https://hci-final-a1f8e-default-rtdb.firebaseio.com';
@@ -33,7 +35,23 @@ export default function Profile(props) {
         if (index >= 0) {
             copy.splice(index, 1);
             window.fits = copy;
+
+            //update firebase to reflect change
+            fetch(`${databaseURL + `users/${props.userId}/saved`}/.json`, {
+                method: "PUT",
+                body: JSON.stringify(window.fits)
+                }).then((res) => {
+                if (res.status !== 200) {
+                    alert("Save Error");
+                } else {
+                    //alert("List Saved!");
+                    return;
+                }
+                });
+
             setList(copy);
+
+
         }
     };
 

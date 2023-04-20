@@ -30,6 +30,10 @@ export default function Closet(props) {
     const navigate = useNavigate();
     const location = useLocation();
 
+    const databaseURL = 'https://hci-final-a1f8e-default-rtdb.firebaseio.com/';
+          //alert(window.fits);
+    
+
     const handleModalOpen = () => setModalOpen(true);
     const handleModalClose = () => setModalOpen(false);
     const handleModalChange = e => {
@@ -69,6 +73,25 @@ export default function Closet(props) {
             setModOutfit(false);
         }
     };
+
+    if(props.userId){
+        fetch(`${databaseURL + `users/${props.userId}/saved`}/.json`)
+            .then((res) => {
+                console.log(res);
+                if (res.status !== 200) {
+                //alert("error getting list");
+                } else {
+                    //alert("data retrieved!");
+                return res.json();
+                }
+            })
+            .then((res) => {
+                if(res){
+                    window.fits = res;
+                }
+                }
+            );
+    }
 
     /*
     const savedOutfit = (top, bottom) =>{
@@ -164,6 +187,18 @@ export default function Closet(props) {
                                 window.fits.length
                                     ? (window.fits = [...window.fits, urls])
                                     : (window.fits = [urls]);
+                                
+                                fetch(`${databaseURL + `users/${props.userId}/saved`}/.json`, {
+                                    method: "PUT",
+                                    body: JSON.stringify(window.fits)
+                                    }).then((res) => {
+                                    if (res.status !== 200) {
+                                        alert("Save Error");
+                                    } else {
+                                        //alert("List Saved!");
+                                        return;
+                                    }
+                                    });
                             }}
                         />
                     }
