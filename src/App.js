@@ -48,7 +48,6 @@ window.fits = [];
 function App() {
     const location = useLocation();
 
-    
     //testing userLogin
     const auth = getAuth(app);
     const [user] = useAuthState(auth);
@@ -99,44 +98,49 @@ function App() {
         <div className="App">
             <ThemeProvider theme={theme}>
                 <Header>{headerTitle}</Header>
-                
+
                 <div className="routes">
                     <Routes>
-                    {!user ? (
-                        <>
-                        <Route
-                            path="/*"
-                            element={<Navigate replace to="/login" />}
-                        />
-                        <Route path="/login" element={<Login />} />
-                        </>)
-                    : ( <><Route
-                            path="/"
-                            element={<Navigate replace to="/closet" />}
-                        />
-                        <Route
-                            path="/closet/*"
-                            element={
-                                <Closet
-                                    modOutfit={modOutfit}
-                                    setModOutfit={setModOutfit}
-                                    closetData={userData.closet}
-                                    userId={userData.userid}
+                        {!user ? (
+                            <>
+                                <Route
+                                    path="/*"
+                                    element={<Navigate replace to="/login" />}
                                 />
-                            }
-                        />
-                        <Route
-                            path="/profile"
-                            element={
-                                <Profile
-                                    profilePicture={userData.profile_picture}
-                                    username={userData.username}
-                                    userId={userData.userid}
+                                <Route path="/login" element={<Login />} />
+                            </>
+                        ) : (
+                            <>
+                                <Route
+                                    path="/"
+                                    element={<Navigate replace to="/closet" />}
                                 />
-                            }
-                        />
-                        <Route path="/login" element={<Login />} /></>
-                        ) }
+                                <Route
+                                    path="/closet/*"
+                                    element={
+                                        <Closet
+                                            modOutfit={modOutfit}
+                                            setModOutfit={setModOutfit}
+                                            closetData={userData.closet}
+                                            userId={userData.userid}
+                                        />
+                                    }
+                                />
+                                <Route
+                                    path="/profile"
+                                    element={
+                                        <Profile
+                                            profilePicture={
+                                                userData.profile_picture
+                                            }
+                                            username={userData.username}
+                                            userId={userData.userid}
+                                        />
+                                    }
+                                />
+                                <Route path="/login" element={<Login />} />
+                            </>
+                        )}
                     </Routes>
                 </div>
 

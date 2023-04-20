@@ -30,7 +30,6 @@ import {
     signInWithEmailAndPassword,
 } from 'firebase/auth';
 
-
 export default function Closet(props) {
     const [modalOpen, setModalOpen] = useState(false);
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -42,27 +41,24 @@ export default function Closet(props) {
 
     const auth = getAuth(app);
 
-
     const databaseURL = 'https://hci-final-a1f8e-default-rtdb.firebaseio.com/';
     //alert(window.fits);
     //alert(props.userId);
     fetch(`${databaseURL + `users/${props.userId}/saved`}/.json`)
-    .then((res) => {
-        console.log(res);
-        if (res.status !== 200) {
-        //alert("error getting list");
-        } else {
-            //alert("data retrieved!");
-        return res.json();
-        }
-    })
-    .then((res) => {
-        if(res){
-            window.fits = res;
-        } else 
-            window.fits = [];
-        }
-    );
+        .then(res => {
+            console.log(res);
+            if (res.status !== 200) {
+                //alert("error getting list");
+            } else {
+                //alert("data retrieved!");
+                return res.json();
+            }
+        })
+        .then(res => {
+            if (res) {
+                window.fits = res;
+            } else window.fits = [];
+        });
 
     const handleModalOpen = () => setModalOpen(true);
     const handleModalClose = () => setModalOpen(false);
@@ -103,7 +99,6 @@ export default function Closet(props) {
             setModOutfit(false);
         }
     };
-
 
     /*
     const savedOutfit = (top, bottom) =>{
@@ -194,25 +189,34 @@ export default function Closet(props) {
                             save={() => {
                                 var urls = [];
                                 items.forEach(element => {
-                                    if(element.url != 'https://fortbendseniors.org/wp-content/uploads/2019/01/blank-white-square-thumbnail.jpg'){
+                                    if (
+                                        element.url !=
+                                        'https://fortbendseniors.org/wp-content/uploads/2019/01/blank-white-square-thumbnail.jpg'
+                                    ) {
                                         urls.push(element.url);
                                     }
                                 });
                                 window.fits.length
                                     ? (window.fits = [...window.fits, urls])
                                     : (window.fits = [urls]);
-                                
-                                fetch(`${databaseURL + `users/${props.userId}/saved`}/.json`, {
-                                    method: "PUT",
-                                    body: JSON.stringify(window.fits)
-                                    }).then((res) => {
+
+                                fetch(
+                                    `${
+                                        databaseURL +
+                                        `users/${props.userId}/saved`
+                                    }/.json`,
+                                    {
+                                        method: 'PUT',
+                                        body: JSON.stringify(window.fits),
+                                    }
+                                ).then(res => {
                                     if (res.status !== 200) {
-                                        alert("Save Error");
+                                        alert('Save Error');
                                     } else {
                                         //alert("List Saved!");
                                         return;
                                     }
-                                    });
+                                });
                             }}
                         />
                     }

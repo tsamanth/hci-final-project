@@ -167,7 +167,7 @@ export default function ViewPage(props) {
                     {!props.modOutfitOn && (
                         <Grid item xs={4} justifyContent="top">
                             <Item onClick={handleModalOpen}>
-                                <AddCircleOutlineIcon className="add-clothing-button"/>
+                                <AddCircleOutlineIcon className="add-clothing-button" />
                             </Item>
                         </Grid>
                     )}

@@ -46,11 +46,11 @@ export default function Profile(props) {
 
             //update firebase to reflect change
             fetch(`${databaseURL + `/users/${props.userId}/saved`}/.json`, {
-                method: "PUT",
-                body: JSON.stringify(window.fits)
-                }).then((res) => {
+                method: 'PUT',
+                body: JSON.stringify(window.fits),
+            }).then(res => {
                 if (res.status !== 200) {
-                    alert("Save Error");
+                    alert('Save Error');
                 } else {
                     //alert("List Saved!");
                     return;
@@ -58,7 +58,6 @@ export default function Profile(props) {
             });
 
             setList(copy);
-
         }
     };
 
@@ -184,7 +183,7 @@ export default function Profile(props) {
                                     </Button>
                                 </div>
                             </div>
-                            
+
                             <Grid
                                 className="outfit-grid"
                                 container
