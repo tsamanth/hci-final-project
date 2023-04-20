@@ -99,21 +99,20 @@ function App() {
         <div className="App">
             <ThemeProvider theme={theme}>
                 <Header>{headerTitle}</Header>
-                {user && (
+                
+                <div className="routes">
                     <Routes>
+                    {!user ? (
                         <Route
                             path="/"
                             element={<Navigate replace to="/login" />}
                         />
-                        <Route path="/login" element={<Login />} />
-                    </Routes>
-                )}
-                <div className="routes">
-                    <Routes>
-                        <Route
+                       
+                    ) : ( <Route
                             path="/"
                             element={<Navigate replace to="/closet" />}
-                        />
+                        />) }
+                        <Route path="/login" element={<Login />} />
                         <Route
                             path="/closet/*"
                             element={

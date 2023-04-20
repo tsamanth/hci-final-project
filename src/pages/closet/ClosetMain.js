@@ -42,10 +42,6 @@ export default function Closet(props) {
 
     const auth = getAuth(app);
 
-    if(!props.userId){
-        auth.signOut();
-        navigate('/login');
-    }
 
     const databaseURL = 'https://hci-final-a1f8e-default-rtdb.firebaseio.com/';
     //alert(window.fits);

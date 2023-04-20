@@ -27,9 +27,7 @@ export default function Login(props) {
     const userLogin = () => {
         signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-            // Signed in 
-            navigate('/closet/make-outfit');
-
+           
             //load in saved outfits 
             const databaseURL = 'https://hci-final-a1f8e-default-rtdb.firebaseio.com/';
             const userid = email.split('@')[0];
@@ -52,6 +50,9 @@ export default function Login(props) {
                         }
                     );
             } 
+            
+            // Signed in 
+            //navigate('/closet/make-outfit');
         })
         .catch((error) => {
             const errorCode = error.code;
