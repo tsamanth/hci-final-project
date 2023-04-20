@@ -97,31 +97,34 @@ export default function ViewPage(props) {
               });
             }
           );
+        
+        if(storeLink != ""){
+            const updates = {
+                [props.type]: [...props.images, storeLink],
+            };
 
-        const updates = {
-            [props.type]: [...props.images, storeLink],
-        };
+            //alert(JSON.stringify(updates[props.type]));
+            //upload changes to database
 
-        //alert(JSON.stringify(updates[props.type]));
-        //upload changes to database
-
-        fetch(`${databaseURL + `users/${props.userId}/closet/${props.type}`}/.json`, {
-            method: "PUT",
-            body: JSON.stringify(updates[props.type])
-          }).then((res) => {
-            if (res.status !== 200) {
-              alert("Save Error");
-            } else {
-              //alert("List Saved!");
-              return;
-            }
-          });
+            fetch(`${databaseURL + `users/${props.userId}/closet/${props.type}`}/.json`, {
+                method: "PUT",
+                body: JSON.stringify(updates[props.type])
+            }).then((res) => {
+                if (res.status !== 200) {
+                alert("Save Error");
+                } else {
+                //alert("List Saved!");
+                return;
+                }
+            });
+        }
 
         //update(ref(db, `users/${props.userId}/closet`), updates);
     };
 
     const removeItem = (url, type) => {
         const newImgs = props.images.filter(i => {
+            //push new url into base
             return i != url;
         });
         const updates = {
