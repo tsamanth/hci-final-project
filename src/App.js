@@ -16,6 +16,7 @@ import { headerMapping } from './constants';
 import { createTheme, ThemeProvider } from '@mui/material';
 import { Theme } from './colorConstants';
 import { initalCloset } from './pages/closet/constants';
+import CircularProgress from '@mui/material/CircularProgress';
 
 //firebase imports
 import app from './firebase';
@@ -38,8 +39,8 @@ const theme = createTheme({
             main: Theme.grey,
         },
         delete: {
-            main: '#000'
-        }
+            main: '#000',
+        },
     },
     typography: {
         fontFamily: 'Cabin',
@@ -53,7 +54,7 @@ function App() {
 
     //testing userLogin
     const auth = getAuth(app);
-    const [user] = useAuthState(auth);
+    const [user, loading] = useAuthState(auth);
     const [modOutfit, setModOutfit] = useState(false);
     const navigate = useNavigate();
 
@@ -93,6 +94,18 @@ function App() {
             });
         }
     }, [user]);
+
+    if (loading) {
+        return (
+            <div className="App">
+                <ThemeProvider theme={theme}>
+                    <div className="routes">
+                        <CircularProgress />
+                    </div>
+                </ThemeProvider>
+            </div>
+        );
+    }
 
     //signInWithEmailAndPassword(auth, "test@email.com", "abc123");
 

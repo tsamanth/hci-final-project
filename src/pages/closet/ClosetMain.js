@@ -75,7 +75,7 @@ export default function Closet(props) {
         } else {
             setItems(
                 items.filter(i => {
-                    return i.type != label;
+                    return i.type.toLowerCase() != label.toLowerCase();
                 })
             );
         }
@@ -109,7 +109,9 @@ export default function Closet(props) {
     }*/
 
     useEffect(() => {
-        navigate(`/closet/make-outfit`);
+        if(modOutfit){
+            navigate(`/closet/make-outfit`);
+        }
     }, [items]);
     return (
         <div className="closet page">
