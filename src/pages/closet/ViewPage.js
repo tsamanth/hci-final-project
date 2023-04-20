@@ -137,9 +137,21 @@ export default function ViewPage(props) {
         };
         update(ref(db, `users/${props.userId}/closet`), updates);
     };
-
-    let listImages = <></>;
-
+    if (props.images.length == 0) {
+        props.setEditMode(false);
+    }
+    let listImages = props.modOutfitOn ? (
+        <div className="no-items">
+            {' '}
+            there are currently no items in this section. to add {
+                props.type
+            }{' '}
+            items, click on the closet page below and navigate to the{' '}
+            <b>{props.type}</b> section using the sidebar.
+        </div>
+    ) : (
+        <></>
+    );
     if (props.images.length > 0 && Array.isArray(props.images)) {
         listImages = props.images.map(url => (
             <Grid item xs={4} key={url}>
@@ -214,4 +226,5 @@ ViewPage.propTypes = {
     modOutfitOn: PropTypes.bool,
     userId: PropTypes.string,
     editMode: PropTypes.bool,
+    setEditMode: PropTypes.func,
 };

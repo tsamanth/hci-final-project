@@ -17,6 +17,7 @@ import ViewPage from './ViewPage';
 import TuneIcon from '@mui/icons-material/Tune';
 import { emptyItems, allCatagories, blankSquare } from './constants';
 import PropTypes from 'prop-types';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { modalStyle } from '../../display';
 
 import app from '../../firebase';
@@ -112,7 +113,7 @@ export default function Closet(props) {
     }, [items]);
     return (
         <div className="closet page">
-            {location.pathname !== '/closet/make-outfit' && (
+            {location.pathname !== '/closet/make-outfit' && !modOutfit && (
                 <IconButton
                     className="sidebar-button"
                     aria-label="menu"
@@ -121,18 +122,35 @@ export default function Closet(props) {
                     <MenuIcon />
                 </IconButton>
             )}
+            {modOutfit && (
+                <ArrowBackIosIcon
+                    className="back-button"
+                    aria-label="back"
+                    onClick={() => {
+                        navigate('/closet/make-outfit');
+                        setModOutfit(false);
+                    }}
+                />
+            )}
 
-            <TuneIcon
-                onClick={() => {
-                    if (location.pathname === '/closet/make-outfit') {
-                        handleModalOpen();
-                    } else {
+            {!modOutfit && (
+                <TuneIcon
+                    onClick={() => {
                         setEditMode(!editMode);
-                    }
-                }}
-                className="edit-button"
-                aria-label="edit"
-            />
+                    }}
+                    className="edit-button"
+                    aria-label="edit"
+                />
+            )}
+            {location.pathname === '/closet/make-outfit' && (
+                <TuneIcon
+                    onClick={() => {
+                        handleModalOpen();
+                    }}
+                    className="edit-button"
+                    aria-label="edit"
+                />
+            )}
             <Modal
                 open={modalOpen}
                 onClose={handleModalClose}
@@ -238,6 +256,7 @@ export default function Closet(props) {
                                     modOutfitOn={modOutfit}
                                     userId={userId}
                                     editMode={editMode}
+                                    setEditMode={setEditMode}
                                 />
                             }
                         />

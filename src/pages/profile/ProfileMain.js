@@ -165,7 +165,6 @@ export default function Profile(props) {
         return (
             <>
                 {window.fits.map((element, id) => {
-                    //alert(element.length);
                     return (
                         <div className="saved-outfit" key={id}>
                             <div className="style-title">
@@ -190,31 +189,20 @@ export default function Profile(props) {
                                 rowSpacing={1}
                                 columnSpacing={{ xs: 2, sm: 3, md: 4 }}
                             >
-                                <Grid item xs={3}>
-                                    <div>
-                                        <img src={element[0]} />
-                                    </div>
-                                </Grid>
-                                <Grid item xs={3}>
-                                    <div>
-                                        <img src={element[1]} />
-                                    </div>
-                                </Grid>
-                                <Grid item xs={3}>
-                                    <div>
-                                        <img src={element[2]} />
-                                    </div>
-                                </Grid>
-                                <Grid item xs={3}>
-                                    <div>
-                                        <img src={element[3]} />
-                                    </div>
-                                </Grid>
-                                <Grid item xs={3}>
-                                    <div>
-                                        <img src={element[4]} />
-                                    </div>
-                                </Grid>
+                                {element.map(e => {
+                                    if (
+                                        e !==
+                                        'https://fortbendseniors.org/wp-content/uploads/2019/01/blank-white-square-thumbnail.jpg'
+                                    ) {
+                                        return (
+                                            <Grid item xs={3}>
+                                                <div>
+                                                    <img src={e} />
+                                                </div>
+                                            </Grid>
+                                        );
+                                    }
+                                })}
                             </Grid>
                         </div>
                     );

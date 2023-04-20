@@ -24,11 +24,22 @@ $grey: #494949;
         left: 0px;
     }
 
+    .back-button {
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        margin: 8px;
+    }
+
     .edit-button {
         position: fixed;
         top: 0px;
         right: 0px;
         margin: 8px;
+    }
+
+    .no-items {
+        margin: 70% 10%;
     }
 
     .view-page {
