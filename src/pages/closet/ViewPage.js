@@ -16,6 +16,8 @@ import { Button } from '@mui/material';
 import { buttonStyle } from '../../display';
 import { db } from '../../firebase';
 import { update, ref } from 'firebase/database';
+import { blankSquare } from './constants';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
 import app from '../../firebase';
 import { getAuth } from 'firebase/auth';
@@ -180,6 +182,17 @@ export default function ViewPage(props) {
                         <Grid item xs={4} justifyContent="top">
                             <Item onClick={handleModalOpen}>
                                 <AddCircleOutlineIcon className="add-clothing-button" />
+                            </Item>
+                        </Grid>
+                    )}
+                    {props.modOutfitOn && (
+                        <Grid item xs={4} justifyContent="top">
+                            <Item
+                                onClick={() =>
+                                    props.handleClick(blankSquare, props.type)
+                                }
+                            >
+                                <HighlightOffIcon className="clear-cat" />
                             </Item>
                         </Grid>
                     )}
