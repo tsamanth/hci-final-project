@@ -185,7 +185,7 @@ export default function ViewPage(props) {
                             </Item>
                         </Grid>
                     )}
-                    {props.modOutfitOn && (
+                    {props.modOutfitOn && props.images.length > 0 && (
                         <Grid item xs={4} justifyContent="top">
                             <Item
                                 onClick={() =>
