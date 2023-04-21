@@ -13,6 +13,7 @@ import {
     onAuthStateChanged,
     signOut,
     signInWithEmailAndPassword,
+    createUserWithEmailAndPassword,
 } from 'firebase/auth';
 
 //testing login function
@@ -23,6 +24,22 @@ export default function Login(props) {
     const [password, setPassword] = useState('');
     const auth = getAuth(app);
     const navigate = useNavigate();
+
+    const userSignUp = () => {
+        createUserWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    // Signed in 
+    const user = userCredential.user;
+    // ...
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // ..
+  });
+        
+                       
+    };
 
     const userLogin = () => {
         signInWithEmailAndPassword(auth, email, password)
@@ -90,6 +107,18 @@ export default function Login(props) {
                 }}
             >
                 Sign in
+            </Button>
+             
+            <Button
+                className="btn"
+                sx={buttonStyle}
+                variant="contained"
+                color="secondary"
+                onClick={() => {
+                    userSignUp();
+                }}
+            >
+                Sign up
             </Button>
         </div>
     );
