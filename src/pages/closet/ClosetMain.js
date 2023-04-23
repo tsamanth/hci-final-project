@@ -90,12 +90,28 @@ export default function Closet(props) {
     const handleClickOutfit = (newUrl, type) => {
         if (modOutfit) {
             const updatedItems = items.map(item => {
-                if (item.type.toLowerCase() === type) {
-                    return { ...item, url: newUrl };
+                if (item.type.toLowerCase() === type && item.url === 'https://fortbendseniors.org/wp-content/uploads/2019/01/blank-white-square-thumbnail.jpg') {
+                    if (type === 'tops'){
+                        return { ...item, url: newUrl };
+                    }
+                    if (type === 'bottoms') {
+                        return { ...item, url: newUrl };
+                    }
+                    if (type === 'jewelry') {
+                        return { ...item, url: newUrl };
+                    }
+                    if (type === 'other') {
+                        return { ...item, url: newUrl };
+                    }
+                    if (type === 'shoes') {
+                        return { ...item, url: newUrl };
+                    }
+                    return { ...item, url: item.url };
                 } else {
                     return item;
                 }
             });
+            updatedItems.push({type: type.charAt(0).toUpperCase() + type.slice(1), url: 'https://fortbendseniors.org/wp-content/uploads/2019/01/blank-white-square-thumbnail.jpg'});
             setItems(updatedItems);
             setModOutfit(false);
         }
